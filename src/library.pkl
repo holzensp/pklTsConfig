@@ -1,0 +1,17 @@
+module Library
+
+class LibraryItems {
+    declaration: Boolean
+}
+
+const Library: LibraryItems = new LibraryItems {
+    declaration = true
+}
+
+function addLibraryItems(LibraryItems: LibraryItems, useLibrary: Boolean): Map = 
+    if (useLibrary) 
+        new LibraryItems {
+            declaration = LibraryItems.getProperty("declaration")
+        }.toMap()
+    else
+        Map()

@@ -1,0 +1,17 @@
+module NotDom
+
+class NotDomItems {
+    lib: List<String>
+}
+
+const NotDom: NotDomItems = new NotDomItems {
+    lib = List("es2022")
+}
+
+function addNotDomItems(notDomItems: NotDomItems, useNotDom: Boolean): Map = 
+    if (useNotDom) 
+        new NotDomItems {
+            lib = notDomItems.getProperty("lib")
+        }.toMap()
+    else
+        Map()

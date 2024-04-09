@@ -1,0 +1,38 @@
+module Base
+
+//typealias BaseItems = Mapping<String, Boolean|String>
+
+
+class BaseItems {
+    esModuleInterop: Boolean
+    skipLibCheck: Boolean
+    target: String
+    allowJs: Boolean
+    resolveJsonModule: Boolean
+    moduleDetection: String
+    isolatedModules: Boolean
+}
+
+const Base: BaseItems = new  {
+    esModuleInterop = true
+    skipLibCheck = true
+    target = "es2022"
+    allowJs = true
+    resolveJsonModule = true
+    moduleDetection = "force"
+    isolatedModules = true
+}
+
+function addBaseItems(baseItems: Object, useBase: Boolean): Map = 
+    if (useBase) 
+        new  BaseItems {
+            esModuleInterop = baseItems.getProperty("esModuleInterop")
+            skipLibCheck =  baseItems.getProperty("skipLibCheck")
+            target =  baseItems.getProperty("target")
+            allowJs =  baseItems.getProperty("allowJs")
+            resolveJsonModule =  baseItems.getProperty("resolveJsonModule")
+            moduleDetection =  baseItems.getProperty("moduleDetection")
+            isolatedModules =  baseItems.getProperty("isolatedModules")
+        }.toMap()
+    else
+        Map()

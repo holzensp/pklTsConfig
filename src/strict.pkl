@@ -1,0 +1,23 @@
+module Strict
+
+strict = true
+noUncheckedIndexedAccess = true
+
+class StrictItems {
+    strict: Boolean
+    noUncheckedIndexedAccess: Boolean
+}
+
+const Strict: StrictItems = new StrictItems {
+    strict = true
+    noUncheckedIndexedAccess = true
+}
+
+function addStrictItems(StrictItems: StrictItems, useStrict: Boolean): Map = 
+    if (useStrict) 
+        new StrictItems{
+            strict = StrictItems.getProperty("strict")
+            noUncheckedIndexedAccess = StrictItems.getProperty("noUncheckedIndexedAccess")
+        }.toMap()
+    else
+        Map()

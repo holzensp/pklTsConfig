@@ -1,0 +1,296 @@
+/// Used for some type of purpose.
+@ModuleInfo { minPklVersion = "0.24.0" }
+module TsConfig
+
+import "base.pkl" as Base
+import "strict.pkl" as Strict
+import "strictest.pkl" as Strictest
+import "transpiling.pkl" as Transpiling
+import "nottranspiling.pkl" as NotTranspiling
+import "library.pkl" as Library
+import "monorepo.pkl" as Monorepo
+import "dom.pkl" as Dom
+import "notdom.pkl" as NotDom
+
+typealias ConfigItemName = Set (
+    "esModuleInterop",
+    "skipLibCheck",
+    "target",
+    "allowJs",
+    "resolveJsonModule",
+    "moduleDetection",
+    "isolatedModules",
+    "strict",
+    "noUncheckedIndexedAccess",
+    "declaration",
+    "declarationMap",
+    "declarationDir",
+    "emitDeclarationOnly",
+    "lib",
+    "module",
+    "noEmit",
+    "strict",
+    "noUncheckedIndexedAccess",
+    "allowUnusedLabels",
+    "allowUnreachableCode",
+    "exactOptionalPropertyTypes",
+    "noFallthroughCasesInSwitch",
+    "noImplicitOverride",
+    "noImplicitReturns",
+    "noPropertyAccessFromIndexSignature",
+    "noUncheckedIndexedAccess",
+    "noUnusedLocals",
+    "noUnusedParameters",
+    "isolatedModules",
+    "checkJs",
+    "forceConsistentCasingInFileNames",
+    "outDir"
+)
+
+typealias ConfigItemGroup = Set (
+    "base",
+    "strict",
+    "strictest",
+    "monorepo",
+    "library",
+    "dom",
+    "notdom",
+    "library",
+    "transpiling",
+    "nottranspiling"
+)
+
+typealias ConfigItemvalue = String | Boolean | List<String>
+
+class ConfigItem { 
+    /// The name of the configuration item.
+    name: ConfigItemName
+
+    /// The group that the configuration item belongs to.
+    group: ConfigItemGroup
+
+    /// The comment for a group of configuration items (i.e. 'strict' or 'base')
+    groupComment: String
+
+    /// The comment for a specific configuration item.
+    comment: String
+}
+
+const ConfigItems: Listing<ConfigItem> = new Listing {
+
+    /// Base Items
+    ConfigItem { 
+        name = "esModuleInterop" 
+        group = "base"
+        //groupComment = "\/*** Base Items ***\/"
+        comment = "Emit __esModule interop" 
+        }
+    ConfigItem { 
+        name = "skipLibCheck"
+        group = "base"
+        groupComment = ""
+        comment = "Skip type checking of declaration files" 
+        }
+    ConfigItem { 
+        name = "target"
+        group = "base"
+        groupComment = ""
+        comment = "Set the target version of ECMAScript" 
+        }
+    ConfigItem { 
+        name = "allowJs"
+        group = "base"
+        groupComment = ""
+        comment = "Allow JavaScript files to be compiled"
+        }
+    ConfigItem { 
+        name = "resolveJsonModule"
+        group = "base"
+        groupComment = ""
+        comment = "Include modules without extension"
+        }
+    ConfigItem { 
+        name = "moduleDetection"
+        group = "base"
+        groupComment = ""
+        comment = "Detect module type"
+        }
+    ConfigItem {
+        name = "isolatedModules"
+        group = "base"
+        groupComment = ""
+        comment = "Ensure that each file is a separate module" 
+        }
+
+    /// Strict Items
+    ConfigItem { 
+        name = "strict"
+        group = "strict"
+        //groupComment = "\/*** Strict Items ***\/"
+        comment = "Enable all strict type checking options"
+        }
+    ConfigItem { 
+        name = "noUncheckedIndexedAccess"
+        group = "strict"
+        groupComment = ""
+        comment = "Disallow access to non-nullable properties of an object"
+        }
+
+    /// Library Items
+    ConfigItem { 
+        name = "declaration"
+        group = "library"
+        //groupComment = "\/*** Library Items ***\/"
+        comment = "Generate declaration files" 
+        }
+
+    /// Monorepo Items
+    ConfigItem { 
+        name = "declarationMap"
+        group = "monorepo"
+        //groupComment = "\/*** Monorepo Items ***\/"
+        comment = "Generate source maps for declaration files"
+        }
+    ConfigItem { 
+        name = "declarationDir"
+        group = "monorepo"
+        groupComment = ""
+        comment = "Output directory for declaration files"
+        }
+    ConfigItem { 
+        name = "emitDeclarationOnly"
+        group = "monorepo"
+        groupComment = ""
+        comment = "Only output declaration files"
+        }
+
+    /// Not Using Dom Items
+    ConfigItem { 
+        name = "lib"
+        group = "notdom"
+        //groupComment = "\/*** Not Using Dom Items ***\/"
+        comment = "Specify library files to be included in the compilation"
+        }
+
+    /// Transpiling Items
+    ConfigItem { 
+        name = "module"
+        group = "transpiling"
+        //groupComment = "\/*** Transpiling Items ***\/"
+        comment = "Specify module code generation"
+        }
+    ConfigItem { 
+        name = "noEmit"
+        group = "transpiling"
+        groupComment = ""
+        comment = "Do not emit output files"
+        }
+
+    /// Not Transpiling Items
+    ConfigItem { 
+        name = "module"
+        group = "nottranspiling"
+        //groupComment = "\/*** Not Transpiling Items ***\/"
+        comment = "Specify module code generation" 
+        }
+    ConfigItem { 
+        name = "noEmit"
+        group = "nottranspiling"
+        groupComment = ""
+        comment = "Do not emit output files" 
+        }
+
+    /// Strictest Items
+    ConfigItem { 
+        name = "noUncheckedIndexedAccess"
+        group = "strictest"
+        //groupComment = "\/*** Strictest Items ***\/"
+        comment = "Disallow access to non-nullable properties of an object" 
+        }
+    ConfigItem { 
+        name = "allowUnusedLabels"
+        group = "strictest"
+        groupComment = ""
+        comment = "Allow unused labels" 
+        }
+    ConfigItem { 
+        name = "allowUnreachableCode"
+        group = "strictest"
+        groupComment = ""
+        comment = "Allow unreachable code"
+        }
+    ConfigItem { 
+        name = "exactOptionalPropertyTypes"
+        group = "strictest"
+        groupComment = ""
+        comment = "Require that optional properties are exactly the type they are declared as" 
+        }
+    ConfigItem { 
+        name = "noFallthroughCasesInSwitch"
+        group = "strictest"
+        groupComment = ""
+        comment = "Disallow fallthrough cases in switch statements" 
+        }
+    ConfigItem { 
+        name = "noImplicitOverride"
+        group = "strictest"
+        groupComment = ""
+        comment = "Ensure that overriding methods are explicitly marked as such" 
+        }
+    ConfigItem { 
+        name = "noImplicitReturns"
+        group = "strictest"
+        groupComment = ""
+        comment = "Ensure that all code paths return a value"
+        }
+    ConfigItem { 
+        name = "noPropertyAccessFromIndexSignature"
+        group = "strictest"
+        groupComment = ""
+        comment = "Disallow property access from index signatures" 
+        }
+    ConfigItem { 
+        name = "noUncheckedIndexedAccess"
+        group = "strictest"
+        groupComment = ""
+        comment = "Disallow access to non" 
+        }
+}
+
+
+class TsConfig {
+    /// Use the 'Base' configuration from TotallyTypescript's definitions. Recommended.
+    useBase: Boolean
+
+    /// Use the 'Strict' configuration from TotallyTypescript's definitions. Recommended.
+    useStrict: Boolean
+
+    /// Use the 'Strictest' configuration from TotallyTypescript's definitions. Not recommended.
+    useStrictest: Boolean
+
+    /// Use the 'Transpiling' configuration from TotallyTypescript's definitions. Optional.
+    useTranspiling: Boolean
+
+    /// Use the 'Library' configuration from TotallyTypescript's definitions. Optional.
+    useLibrary: Boolean
+
+    /// Use the 'Monorepo' configuration from TotallyTypescript's definitions. Optional.
+    useMonorepo: Boolean
+
+    /// Use the 'Dom' configuration from TotallyTypescript's definitions. Optional.
+    useDom: Boolean
+}
+
+local typealias InterimTsConfig = Map<String, Any>
+function runTsConfig(config: TsConfig): InterimTsConfig = 
+     List (
+        Base.addBaseItems(Base.Base, config.useBase) + 
+        Dom.addDomItems(Dom.Dom, config.useDom) + 
+        Strict.addStrictItems(Strict.Strict, config.useStrict) +
+        Strictest.addStrictestItems(Strictest.Strictest, config.useStrictest) +
+        Library.addLibraryItems(Library.Library, config.useLibrary) +
+        Monorepo.addMonorepoItems(Monorepo.Monorepo, config.useMonorepo) +
+        Transpiling.addTranspilingItems(Transpiling.Transpiling, config.useTranspiling) +
+        NotTranspiling.addNotTranspilingItems(NotTranspiling.NotTranspiling, !config.useTranspiling) +
+        NotDom.addNotDomItems(NotDom.NotDom, !config.useDom) 
+     ).filter((it) -> it != null)[0]

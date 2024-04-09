@@ -1,0 +1,53 @@
+module Strictest
+
+class StrictestItems {
+    allowUnusedLabels: Boolean
+    allowUnreachableCode: Boolean
+    exactOptionalPropertyTypes: Boolean
+    noFallthroughCasesInSwitch: Boolean
+    noImplicitOverride: Boolean
+    noImplicitReturns: Boolean
+    noPropertyAccessFromIndexSignature: Boolean
+    noUncheckedIndexedAccess: Boolean
+    noUnusedLocals: Boolean
+    noUnusedParameters: Boolean
+    isolatedModules: Boolean
+    checkJs: Boolean
+    forceConsistentCasingInFileNames: Boolean
+}
+
+const Strictest: StrictestItems = new StrictestItems {
+    allowUnusedLabels = false
+    allowUnreachableCode = false
+    exactOptionalPropertyTypes = true
+    noFallthroughCasesInSwitch = true
+    noImplicitOverride = true
+    noImplicitReturns = true
+    noPropertyAccessFromIndexSignature = true
+    noUncheckedIndexedAccess = true
+    noUnusedLocals = true
+    noUnusedParameters = true
+    isolatedModules = true
+    checkJs = true
+    forceConsistentCasingInFileNames = true
+}
+
+function addStrictestItems(StrictestItems: StrictestItems, useStrictest: Boolean): Map = 
+    if (useStrictest) 
+        new StrictestItems {
+            allowUnusedLabels = StrictestItems.getProperty("allowUnusedLabels")
+            allowUnreachableCode = StrictestItems.getProperty("allowUnreachableCode")
+            exactOptionalPropertyTypes = StrictestItems.getProperty("exactOptionalPropertyTypes")
+            noFallthroughCasesInSwitch = StrictestItems.getProperty("noFallthroughCasesInSwitch")
+            noImplicitOverride = StrictestItems.getProperty("noImplicitOverride")
+            noImplicitReturns = StrictestItems.getProperty("noImplicitReturns")
+            noPropertyAccessFromIndexSignature = StrictestItems.getProperty("noPropertyAccessFromIndexSignature")
+            noUncheckedIndexedAccess = StrictestItems.getProperty("noUncheckedIndexedAccess")
+            noUnusedLocals = StrictestItems.getProperty("noUnusedLocals")
+            noUnusedParameters = StrictestItems.getProperty("noUnusedParameters")
+            isolatedModules = StrictestItems.getProperty("isolatedModules")
+            checkJs = StrictestItems.getProperty("checkJs")
+            forceConsistentCasingInFileNames = StrictestItems.getProperty("forceConsistentCasingInFileNames")
+        }.toMap()
+    else
+        Map()

@@ -1,0 +1,24 @@
+module Dom
+
+//typealias DomItems = Mapping<String, String|Boolean>
+
+
+class DomItems {
+    strict: Boolean
+    noUncheckedIndexedAccess: Boolean
+}
+
+
+const Dom = new  DomItems{
+    strict = true
+    noUncheckedIndexedAccess = true
+}
+
+function addDomItems(domItems: DomItems, useDom: Boolean): Map = 
+    if (useDom) 
+        new  DomItems {
+            strict = domItems.getProperty("strict")
+            noUncheckedIndexedAccess =  domItems.getProperty("noUncheckedIndexedAccess")
+        }.toMap()
+    else
+        Map()

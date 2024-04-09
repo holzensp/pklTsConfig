@@ -1,0 +1,23 @@
+module Monorepo
+
+class MonorepoItems {
+    declarationMap: Boolean
+    declarationDir: String
+    emitDeclarationOnly: Boolean
+}
+
+const Monorepo: MonorepoItems = new MonorepoItems {
+    declarationMap = true
+    declarationDir = "dist"
+    emitDeclarationOnly = true
+}
+
+function addMonorepoItems(MonorepoItems: MonorepoItems, useMonorepo: Boolean): Map = 
+    if (useMonorepo) 
+        new MonorepoItems {
+            declarationMap = MonorepoItems.getProperty("declarationMap")
+            declarationDir =  MonorepoItems.getProperty("declarationDir")
+            emitDeclarationOnly =  MonorepoItems.getProperty("emitDeclarationOnly")
+        }.toMap()
+    else
+        Map()

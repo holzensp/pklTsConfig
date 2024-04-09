@@ -1,0 +1,37 @@
+import "./TsConfig.pkl"
+
+local tsConfig: TsConfig.TsConfig = new TsConfig.TsConfig {
+  useBase = true
+  useStrict = true
+  useStrictest = true
+  useDom = true
+  useMonorepo = false
+  useLibrary = false
+  useTranspiling = true
+}
+
+/***
+function renderTsConfig(compilerOptions: Map<String, String>): Listing =
+  new Listing {
+    for (key in compilerOptions) {
+      let (item = TsConfig.lookupConfigItem(key)) 
+      if (item == null) "" 
+      else {
+        if (item.groupComment != "") { 
+          item.groupComment
+        } else {
+          "\(item.name) : \(value)  // \(item.comment)"
+        }
+        } else {
+          //"test"
+      }
+      
+  //}
+    }
+  }
+
+***/
+
+output {
+  text = TsConfig.renderTsConfig(tsConfig)
+}

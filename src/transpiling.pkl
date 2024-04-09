@@ -1,0 +1,20 @@
+module Transpiling
+
+class TranspilingItems {
+    `module`: String
+    outDir: String
+}
+
+const Transpiling: TranspilingItems = new TranspilingItems {
+    `module` = "NodeNext"
+    outDir = "dist"
+}
+
+function addTranspilingItems(transpilingItems: TranspilingItems, useTranspiling: Boolean): Map = 
+    if (useTranspiling) 
+        new TranspilingItems {
+            `module` = transpilingItems.getProperty("module")
+            outDir =  transpilingItems.getProperty("outDir")
+        }.toMap()
+    else
+        Map()

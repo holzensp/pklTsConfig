@@ -1,0 +1,20 @@
+module NotTranspiling
+
+class NotTranspilingItems {
+    `module`: String
+    noEmit: Boolean
+}
+
+const NotTranspiling: NotTranspilingItems = new NotTranspilingItems {
+    `module` = "preserve"
+    noEmit = true
+}
+    
+function addNotTranspilingItems(notTranspilingItems: NotTranspilingItems, useNotTranspiling: Boolean): Map = 
+    if (useNotTranspiling) 
+        new NotTranspilingItems {
+            `module` = notTranspilingItems.getProperty("module")
+            noEmit =  notTranspilingItems.getProperty("noEmit")
+        }
+    else
+        Map()

@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "@pkl-community/pkl-typescript": "^0.0.14"
+  },
+  "name": "pkltsconfig",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gen": "npx pkl-gen-typescript config.pkl -o ./generated"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
