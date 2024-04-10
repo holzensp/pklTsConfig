@@ -1,0 +1,13 @@
+module tsconfig.Default
+
+import "./TsConfig.pkl"
+
+local tsConfig: TsConfig.TsConfig = new TsConfig.TsConfig {
+  useBase = true
+  useStrict = true
+  useStrictest = false
+  useDom = true
+  useMonorepo = false
+  useLibrary = false
+  useTranspiling = true
+}

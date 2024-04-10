@@ -1,0 +1,1 @@
+amends "package://pkg.pkl-lang.org/github.com/pauljphilp/pklTsConfig/pklTsConfig@0.1.0#/TsConfigDefault.pkl"

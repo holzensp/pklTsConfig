@@ -1,5 +1,5 @@
 /// Used for some type of purpose.
-@ModuleInfo { minPklVersion = "0.24.0" }
+@ModuleInfo { minPklVersion = "0.25.0" }
 module TsConfig
 
 import "base.pkl" as Base
@@ -13,43 +13,6 @@ import "dom.pkl" as Dom
 import "notdom.pkl" as NotDom
 
 const linebreak = "\n"
-
-/***
-typealias ConfigItemName = Set (
-    "esModuleInterop",
-    "skipLibCheck",
-    "target",
-    "allowJs",
-    "resolveJsonModule",
-    "moduleDetection",
-    "isolatedModules",
-    "strict",
-    "noUncheckedIndexedAccess",
-    "declaration",
-    "declarationMap",
-    "declarationDir",
-    "emitDeclarationOnly",
-    "lib",
-    "module",
-    "noEmit",
-    "strict",
-    "noUncheckedIndexedAccess",
-    "allowUnusedLabels",
-    "allowUnreachableCode",
-    "exactOptionalPropertyTypes",
-    "noFallthroughCasesInSwitch",
-    "noImplicitOverride",
-    "noImplicitReturns",
-    "noPropertyAccessFromIndexSignature",
-    "noUncheckedIndexedAccess",
-    "noUnusedLocals",
-    "noUnusedParameters",
-    "isolatedModules",
-    "checkJs",
-    "forceConsistentCasingInFileNames",
-    "outDir"
-)
-***/
 
 typealias ConfigItemName = 
     "esModuleInterop"|
