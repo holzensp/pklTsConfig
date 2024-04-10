@@ -6,13 +6,13 @@ import "pkl:reflect"
 
 local myModule = reflect.Module(module)
 
-local githubUser = "pauljphilp"
+local githubUser = "PaulJPhilp"
 
 package {
   name = "pklTsConfig"
   baseUri = "package://pkg.pkl-lang.org/github.com/\(githubUser)/\(name)" 
   authors { "paul@paulphilp.com" }
-  description = myModule.docComment
+  //description = myModule.docComment
   version = read("file:version.txt").text.trim()
   packageZipUrl = "https://github.com/\(githubUser)/\(name)/releases/download/\(name)@\(version)/\(name)@\(version).zip"
 }

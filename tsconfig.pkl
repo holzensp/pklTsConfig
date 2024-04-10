@@ -1,1 +1,2 @@
-amends "package://pkg.pkl-lang.org/github.com/pauljphilp/pklTsConfig/pklTsConfig@0.1.0#/TsConfigDefault.pkl"
+//amends "package://pkg.pkl-lang.org/github.com/PaulJPhilp/pklTsConfig/pklTsConfig@0.1.0#/TsConfigDefault.pkl"
+amends "package://pkg.pkl-lang.org/github.com/chrisvander/pkl-biome/pkl-biome@1.6.0#/BiomeDefault.pkl"
