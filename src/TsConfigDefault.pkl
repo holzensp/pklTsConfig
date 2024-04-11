@@ -1,8 +1,8 @@
-module tsconfig.Default
+module TsConfig.Default
 
 import "./TsConfig.pkl"
 
-local tsConfig: TsConfig.TsConfig = new TsConfig.TsConfig {
+config: TsConfig.TsConfig = new {
   useBase = true
   useStrict = true
   useStrictest = false
@@ -10,4 +10,12 @@ local tsConfig: TsConfig.TsConfig = new TsConfig.TsConfig {
   useMonorepo = false
   useLibrary = false
   useTranspiling = true
+}
+
+output {
+  files {
+    ["./totallytsconfig.json"] {
+      text = "{" + TsConfig.renderTsConfig(config).dropLast(1) + "\n}"
+    }
+  }
 }

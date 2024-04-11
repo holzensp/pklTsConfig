@@ -249,7 +249,7 @@ const ConfigItems: List<ConfigItem> =  List (
 )
 
 
-function lookupConfigItem(name: String): ConfigItem|Null = 
+function lookupConfigItem(name: String): ConfigItem? = 
     ConfigItems.findOrNull((it) -> it.name == name)
 
 
@@ -292,6 +292,14 @@ function runTsConfig(config: TsConfig): Map<String, ConvigValue> =
         NotDom.addNotDomItems(NotDom.NotDom, !config.useDom) 
      ).filter((it) -> it != null)[0]
 
+function renderElement(value: Any): String =
+    if (value is Null) ""
+    else if (value is String) #""\#(value)""#
+    else if (value is Boolean) #"\#(value)"#
+    else if (value is List) #"[\#(renderElement(value.getOrNull(0)))]"#
+    else "Garbage"
+    //"\(item?.name): \(value)    // \(item?.comment)"
+
 function renderTsConfig(config: TsConfig): String = 
      let (items = runTsConfig(config))
         if (items.isEmpty) 
@@ -303,9 +311,11 @@ function renderTsConfig(config: TsConfig): String =
                 new Listing<String> {
                     when (!(item?.groupComment?.isEmpty ?? true)) {
                         linebreak
-                        item.groupComment
+                        //item.groupComment
                     }
-                "\(item?.name): \(value)    // \(item?.comment)"
+                    when (item != null) { 
+                        #""\#(item.name)": \#(renderElement(value)),"# 
+                        }
                 }.join("\n")
             }
-        }.toList().filter((n) -> n.indexOfOrNull("null:") != 0).toListing().join("\n")
+        }.toList().filter((n) -> n.indexOfOrNull("\"null\":") != 0).toListing().join("\n")
