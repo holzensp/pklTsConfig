@@ -1,5 +1,5 @@
-//amends "package://pkg.pkl-lang.org/github.com/PaulJPhilp/pklTsConfig/pklTsConfig@0.2.0#/TsConfigDefault.pkl"
-amends "./src/TsConfigDefault.pkl"
+amends "package://pkg.pkl-lang.org/github.com/PaulJPhilp/pklTsConfig/pklTsConfig@0.3.0#/TsConfigDefault.pkl"
+//amends "./src/TsConfigDefault.pkl"
 
 config {
     useDom = false

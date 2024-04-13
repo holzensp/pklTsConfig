@@ -320,12 +320,6 @@ function renderTsConfigWithComments(config: TsConfig): String =
             }
         }.toList().filter((line) -> line != null && !line.isEmpty).toListing().join("\n")
 
-
-function itemToMapping(item: ConfigItem) = new {
-    when(item != Null)
-        { [item.name] = renderElement(value) }
-    }
-
 function renderTsConfig(config: TsConfig) = 
      let (items = runTsConfig(config))
         new Mapping {
@@ -333,4 +327,3 @@ function renderTsConfig(config: TsConfig) =
                 [name] = renderElement(value)
             }
           }
-        
