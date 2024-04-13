@@ -324,6 +324,6 @@ function renderTsConfig(config: TsConfig) =
      let (items = runTsConfig(config))
         new Mapping {
             for(name, value in items) {
-                [name] = renderElement(value)
+                [name] = trace(renderElement(value))
             }
           }
