@@ -15,7 +15,13 @@ config: TsConfig.TsConfig = new {
 output {
   files {
     ["./totallytsconfig.json"] {
-      text = "{" + TsConfig.renderTsConfig(config).dropLast(1) + "\n}"
+      value = TsConfig.renderTsConfig(config)
+      renderer = new JsonRenderer {
+        //converters {
+          //[Pair] = (pair) ->  List(pair.first, pair.second).join(": ")
+        //}
+      }
+      //text = "{\n\"compilerOptions\" : {" + TsConfig.renderTsConfigWithComments(config).dropLast(1) + "\n\t}\n}"
     }
   }
 }

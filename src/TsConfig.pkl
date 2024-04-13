@@ -276,12 +276,13 @@ class TsConfig {
     useDom: Boolean
 }
 
-typealias ConvigValue = String | Boolean | List<String>
+typealias ConfigValue = String | Boolean | List<String>
+//typealias ConfigElement = Object
 
 /// Build the TsConfig module with the given configuration.
-function runTsConfig(config: TsConfig): Map<String, ConvigValue> = 
-     List (
-        Base.addBaseItems(Base.Base, config.useBase) + 
+function runTsConfig(config: TsConfig) = 
+      List (
+        Base.addBaseItems(Base.Base, config.useBase) +
         Dom.addDomItems(Dom.Dom, config.useDom) + 
         Strict.addStrictItems(Strict.Strict, config.useStrict) +
         Strictest.addStrictestItems(Strictest.Strictest, config.useStrictest) +
@@ -293,14 +294,13 @@ function runTsConfig(config: TsConfig): Map<String, ConvigValue> =
      ).filter((it) -> it != null)[0]
 
 function renderElement(value: Any): String =
-    if (value is Null) ""
-    else if (value is String) #""\#(value)""#
+
+    if (value is String) #"\#(value)"#
     else if (value is Boolean) #"\#(value)"#
     else if (value is List) #"[\#(renderElement(value.getOrNull(0)))]"#
-    else "Garbage"
-    //"\(item?.name): \(value)    // \(item?.comment)"
+    else ""
 
-function renderTsConfig(config: TsConfig): String = 
+function renderTsConfigWithComments(config: TsConfig): String = 
      let (items = runTsConfig(config))
         if (items.isEmpty) 
             "No configuration items selected."
@@ -311,11 +311,26 @@ function renderTsConfig(config: TsConfig): String =
                 new Listing<String> {
                     when (!(item?.groupComment?.isEmpty ?? true)) {
                         linebreak
-                        //item.groupComment
+                        #"\#t\#(item.groupComment)"#
                     }
                     when (item != null) { 
-                        #""\#(item.name)": \#(renderElement(value)),"# 
+                        #"\#t"\#(item.name)": \#(renderElement(value)), \#t\#t// \#(item.comment)"# 
                         }
                 }.join("\n")
             }
-        }.toList().filter((n) -> n.indexOfOrNull("\"null\":") != 0).toListing().join("\n")
+        }.toList().filter((line) -> line != null && !line.isEmpty).toListing().join("\n")
+
+
+function itemToMapping(item: ConfigItem) = new {
+    when(item != Null)
+        { [item.name] = renderElement(value) }
+    }
+
+function renderTsConfig(config: TsConfig) = 
+     let (items = runTsConfig(config))
+        new Mapping {
+            for(name, value in items) {
+                [name] = renderElement(value)
+            }
+          }
+        

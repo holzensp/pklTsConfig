@@ -1,0 +1,13 @@
+{
+  "name": "pklTsConfig",
+  "packageUri": "package://pkg.pkl-lang.org/github.com/PaulJPhilp/pklTsConfig@0.2.0",
+  "version": "0.2.0",
+  "packageZipUrl": "https://github.com/PaulJPhilp/pklTsConfig/releases/download/pklTsConfig@0.2.0/pklTsConfig@0.2.0.zip",
+  "packageZipChecksums": {
+    "sha256": "fdc9be24731be55490d56663d815bb80f15d56c8f21c88f808034eb1ab306701"
+  },
+  "dependencies": {},
+  "authors": [
+    "paul@paulphilp.com"
+  ]
+}
