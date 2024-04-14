@@ -1,6 +1,12 @@
 # pklTsConfig
 
-A [Pkl](https://pkl-lang.org) module for Typescript's *tsconfig.json* based on Totally Typescript's TsConfig Cheatsheet (https://www.totaltypescript.com/tsconfig-cheat-sheet) configuration.
+When setting up or re-factoring a Typescript project, creating or updating the required **tsconfig.json** file is often frustrating and time-wasting.  There are almost 100 possible entries and each new TS release can add a few new entries (or, depricate old ones).  Some entries are required, and some are optional.  Some are incompatible with others. Some are used by build, test and other development tools.  It's very confusing and many of us just copy and paste another **tsconfig.json** that looks ok.
+
+Matt Pocock at TotalTypescript addressed these challenges by creating the TsConfig Cheatsheet (https://www.totaltypescript.com/tsconfig-cheat-sheet).  Thanks, Matt.
+
+Recently, Apple open sourced a new language for creating configuration files, [Pkl](https://pkl-lang.org), that can generate json files (as well as yaml, toml, and others).
+
+This library simplifies setting up and managing tsconfig.json files by implementing Totally Typescript's TsConfig Cheatsheet (https://www.totaltypescript.com/tsconfig-cheat-sheet) configuration using Apple's new Pkl language.
 
 ## Usage
 
