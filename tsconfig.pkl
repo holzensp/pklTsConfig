@@ -7,12 +7,15 @@ config {
 }
 
 root {
+    extends: "project_tsconfig.json"
     files { 
         "main.ts"
         "index.ts"
         }
-    include { 
-        "main.ts"
-        "index.ts"
+    exclude { 
+        "exlude.ts"
         }
+    include {
+        "include.ts"
+    }
 }

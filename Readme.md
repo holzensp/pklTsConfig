@@ -1,26 +1,85 @@
-# pklTsConig
+# pklTsConfig
 
-
-
-
-A [Pkl](https://pkl-lang.org) module for [Typescript (tsconfig.json)] based on Totally Typescript's TsConfig Cheatsheet (https://www.totaltypescript.com/tsconfig-cheat-sheet) configuration.
+A [Pkl](https://pkl-lang.org) module for Typescript's *tsconfig.json* based on Totally Typescript's TsConfig Cheatsheet (https://www.totaltypescript.com/tsconfig-cheat-sheet) configuration.
 
 ## Usage
 
-You can amend this package's provided module to configure your Typescript tsconfig.json file. Simply add the following line to a Pkl file (name doesn't matter, but `biome.pkl` makes sense) in your project:
+You can amend this package's provided module to configure your Typescript tsconfig.json file. Simply add the following line to a Pkl file 
 ```pkl
-amends "package://pkg.pkl-lang.org/github.com/chrisvander/pkl-biome/pkl-biome@1.6.0#/BiomeDefault.pkl"
+amends "package://pkg.pkl-lang.org/github.com/PaulJPhilp/pklTsConfig/pklTsConfig@0.3.0#/TsConfigDefault.pkl"
 ```
 
 and then specify your configuration below. With the VSCode Pkl extension, you'll get autocomplete for all the available options.
 
-You can change the file name from `BiomeDefault.pkl` to `BiomeGit.pkl` if you want a Biome.js configuration with boilerplate Git support.
+```
+config {
+    useDom: true
+    useTranspiling: false
+}
 
-To build, run `pkl eval biome.pkl -m .`, and it will create a `biome.json` in the same directory.
-## Development
+root {
+    files { 
+        "main.ts"
+        "index.ts"
+        }
+    exclude { 
+        "tests.ts"
+        }
+}
+```
 
-This project uses [Mise](https://mise.jdx.dev) to handle dependencies. To install all dependencies, run `mise install`, followed by `pnpm i`.
+## Config Element
 
-## Release Flow
+The config element is transformed into the **"compilerOptions"** section of your tsconfig.json file.  Based on the sections
+provided in TotalTypescript's TsConfig Cheat Sheet, the following flags are available:
 
-This module tracks with the version of Biome.js it supports. When a new version of Biome.js is released, a new version of this module is released as well. A GitHub Action, on a cron schedule, checks for new versions of Biome.js and triggers creation of a new version PR when it finds a difference. The PR is then merged by a maintainer.
+- **useBase**: use all the entries definded in the *Base Options* section in the Cheat Sheet.
+- **useStrict**: use all the entries definded in the *Strict Options* section in the Cheat Sheet.
+- **useStrictest**: use all the strict entries which are **not recommended** in the Cheat Sheet.
+- **useDom**: use all the entries definded in the *Dom Options* section in the Cheat Sheet.
+- **useMonorepo**: use all the entries definded in the *Monorepo Options* section in the Cheat Sheet.
+- **useLibrary**: use all the entries definded in the *Library Options* section in the Cheat Sheet.
+- **useTranspiling**: use all the entries definded in the *Transpiling Options* section in the Cheat Sheet.
+
+### Default Values
+
+```
+config {
+  useBase = true
+  useStrict = true
+  useStrictest = false
+  useDom = true
+  useMonorepo = false
+  useLibrary = false
+  useTranspiling = true
+}
+```
+
+### Root Element
+
+The root element is transformed into the root level elements allowed in a *tsconfig.json* file which
+are not defined in the Cheat Sheet *["extends", "files", "includes", "excludes"]*.  The *reference* field
+will be add in a future release.
+
+By default, the root elements are not included in the tsconfig.json file unless an
+element is explicitly specified.
+
+For example:
+
+`
+root {
+    extends: "project_tsconfig.json"
+    files { 
+        "main.ts"
+        "index.ts"
+        }
+    exclude { 
+        "exlude.ts"
+        }
+    include {
+        "include.ts"
+    }
+}
+`
+
+To build, run `pkl eval tsconfig.pkl -m .`, and it will create a `tsconfig.json` in the same directory.
