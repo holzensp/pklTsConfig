@@ -1,5 +1,5 @@
-//amends "package://pkg.pkl-lang.org/github.com/PaulJPhilp/pklTsConfig/pklTsConfig@0.3.3#/TsConfigDefault.pkl"
-amends "./src/TsConfigDefault.pkl"
+amends "package://pkg.pkl-lang.org/github.com/PaulJPhilp/pklTsConfig/pklTsConfig@0.4.0#/TsConfigDefault.pkl"
+//amends "./src/TsConfigDefault.pkl"
 
 config {
     useDom = false
@@ -7,7 +7,7 @@ config {
 }
 
 root {
-    extends: "project_tsconfig.json"
+    `extends` = "project_tsconfig.json"
     files { 
         "main.ts"
         "index.ts"

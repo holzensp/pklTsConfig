@@ -66,7 +66,7 @@ element is explicitly specified.
 
 For example:
 
-`
+```
 root {
     extends: "project_tsconfig.json"
     files { 
@@ -80,6 +80,15 @@ root {
         "include.ts"
     }
 }
-`
+```
 
 To build, run `pkl eval tsconfig.pkl -m .`, and it will create a `tsconfig.json` in the same directory.
+
+If you don't have `pkl` installed on your local machine, you can use your Javascript runtime to run
+a remote version of `pkl`:
+
+With `npx`: 
+`npx pkl eval tsconfig.pkl -m .`
+
+With `bunx`:
+`bunx pkl eval tsconfig.pkl -m .`

@@ -336,7 +336,7 @@ function renderTsConfig(config: TsConfig, root:Object) =
         ["compilerOptions"] = let (items = runTsConfig(config))
             new Mapping {
                 for(name, value in items) {
-                    [name] = trace(renderElement(value))
+                    [name] = renderElement(value)
                 }
             }
         when (root.`extends` != "") { ["extends"] = root.`extends` }
