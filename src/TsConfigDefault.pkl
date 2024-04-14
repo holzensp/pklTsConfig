@@ -12,10 +12,17 @@ config: TsConfig.TsConfig = new {
   useTranspiling = true
 }
 
+root = new TsConfig.Root {
+  `extends` = ""
+  files = new Listing {}
+  include = new Listing {}
+  exclude = new Listing {}
+}
+
 output {
   files {
     ["./totallytsconfig.json"] {
-      value = TsConfig.renderTsConfig(config)
+      value = TsConfig.renderTsConfig(config, root)
       renderer = new JsonRenderer {
       /***
         //converters {

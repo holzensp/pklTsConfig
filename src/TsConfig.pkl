@@ -248,6 +248,16 @@ const ConfigItems: List<ConfigItem> =  List (
         }
 )
 
+typealias FileName = String
+typealias FileList = Listing<FileName>
+
+class Root {
+    `extends`: FileName
+    files: FileList
+    include: FileList
+    exclude: FileList
+}
+
 
 function lookupConfigItem(name: String): ConfigItem? = 
     ConfigItems.findOrNull((it) -> it.name == name)
@@ -320,10 +330,17 @@ function renderTsConfigWithComments(config: TsConfig): String =
             }
         }.toList().filter((line) -> line != null && !line.isEmpty).toListing().join("\n")
 
-function renderTsConfig(config: TsConfig) = 
-     let (items = runTsConfig(config))
-        new Mapping {
-            for(name, value in items) {
-                [name] = trace(renderElement(value))
+
+function renderTsConfig(config: TsConfig, root:Object) = 
+    new Mapping {
+        ["compilerOptions"] = let (items = runTsConfig(config))
+            new Mapping {
+                for(name, value in items) {
+                    [name] = trace(renderElement(value))
+                }
             }
-          }
+        when (root.`extends` != "") { ["extends"] = root.`extends` }
+        when (!root.files.isEmpty) { ["files"] = root.files }
+        when (!root.include.isEmpty) { ["include"] = root.include }
+        when (!root.exclude.isEmpty) { ["exclude"] = root.exclude }
+    }

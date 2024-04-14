@@ -1,7 +1,18 @@
-amends "package://pkg.pkl-lang.org/github.com/PaulJPhilp/pklTsConfig/pklTsConfig@0.3.1#/TsConfigDefault.pkl"
-//amends "./src/TsConfigDefault.pkl"
+//amends "package://pkg.pkl-lang.org/github.com/PaulJPhilp/pklTsConfig/pklTsConfig@0.3.3#/TsConfigDefault.pkl"
+amends "./src/TsConfigDefault.pkl"
 
 config {
     useDom = false
     useStrictest = true
+}
+
+root {
+    files { 
+        "main.ts"
+        "index.ts"
+        }
+    include { 
+        "main.ts"
+        "index.ts"
+        }
 }
