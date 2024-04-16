@@ -129,13 +129,28 @@ The outputFileName name lets you set the name of the produced by Pkl.
 outputFileName = "totally_tsconfig.json
 ```
 
-To build, run `pkl eval tsconfig.pkl -m .`, and it will create a `tsconfig.json` in the same directory.
+### Warning ###
+There is a bug where in VsCode (at least), when you set *outputFileName* to 'tsconfig.json',
+Pkl creates the proper 'tsconfig.json' file but it has the type Typescript, not JSON.  
+All other file names are fine.
 
-If you don't have `pkl` installed on your local machine, you can use your Javascript runtime to run
-a remote version of `pkl`:
+As a workaround, pklTsConfig will set *outputFileName* to 'totally_tsconfig.json' when it is set to 'tsconfig.json'.  Just
+change the file name to 'tsconfig.json' and your all set.
 
-With `npx`: 
-`npx pkl eval tsconfig.pkl -m .`
+### Running pklTsConfig ###
 
-With `bunx`:
-`bunx pkl eval tsconfig.pkl -m .`
+1)  If you have `Pkl` installed locally:
+
+        To generate you tsconfig, run `pkl eval tsconfig.pkl -m .`, and it will create a `tsconfig.json` file in the same directory.
+
+        You can download Pkl by following Pkl's [installation instructions](https://pkl-lang.org/main/current/pkl-cli/index.html#installation).
+
+2)  If you don't have `Pkl` installed on your local machine:
+   
+    You can use your Javascript bundler (npm, bun) to run a remote version of `pkl`:
+
+         With `npx`: 
+         `npx pkl eval tsconfig.pkl -m .`
+
+         With `bunx`:
+         `bunx pkl eval tsconfig.pkl -m .`

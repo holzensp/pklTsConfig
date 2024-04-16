@@ -21,11 +21,11 @@ root = new Schema.RootSchema {
 
 amend = new Schema.AmendSchema { }
 
-outputFileName: String = "tsconfig.json"
+outputFileName:Schema.ValidOutputFileName = "tsconfig.json"
 
 output {
   files {
-    [outputFileName] {
+    [if (outputFileName == "tsconfig.json") "totally_tsconfig.json" else outputFileName] {
       value = Render.renderTsConfig(config, root, amend)
       renderer = new JsonRenderer {
         converters {

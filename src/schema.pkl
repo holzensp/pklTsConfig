@@ -6,6 +6,7 @@ typealias ConfigItemValue = String | Boolean | List<String>
 
 typealias FileName = String(contains(".ts") || contains(".tsx") || contains(".json") || contains(".js"))
 typealias FileList = Listing<FileName>
+typealias ValidOutputFileName = String(matches(Regex(#"[a-zA-Z0-9-_. ]{1,255}.json"#)))
 
 class pklTsConfigSchema {
     compilerOptions: CompilerOptionsSchema

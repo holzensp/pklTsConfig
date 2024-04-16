@@ -25,4 +25,4 @@ amend {
     ["allowJs"] = false
 }
 
-outputFileName = "totally_tsconfig.json"
+outputFileName = "tsconfig.json"
