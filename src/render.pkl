@@ -1,6 +1,10 @@
 /// Used for some type of purpose.
-@ModuleInfo { minPklVersion = "0.24.0" }
+@ModuleInfo { minPklVersion = "0.25.0" }
 module TsConfig
+
+import "TsConfig.pkl"
+
+import "schema.pkl" as Schema
 
 import "base.pkl" as Base
 import "strict.pkl" as Strict
@@ -12,279 +16,187 @@ import "monorepo.pkl" as Monorepo
 import "dom.pkl" as Dom
 import "notdom.pkl" as NotDom
 
-typealias ConfigItemName = Set (
-    "esModuleInterop",
-    "skipLibCheck",
-    "target",
-    "allowJs",
-    "resolveJsonModule",
-    "moduleDetection",
-    "isolatedModules",
-    "strict",
-    "noUncheckedIndexedAccess",
-    "declaration",
-    "declarationMap",
-    "declarationDir",
-    "emitDeclarationOnly",
-    "lib",
-    "module",
-    "noEmit",
-    "strict",
-    "noUncheckedIndexedAccess",
-    "allowUnusedLabels",
-    "allowUnreachableCode",
-    "exactOptionalPropertyTypes",
-    "noFallthroughCasesInSwitch",
-    "noImplicitOverride",
-    "noImplicitReturns",
-    "noPropertyAccessFromIndexSignature",
-    "noUncheckedIndexedAccess",
-    "noUnusedLocals",
-    "noUnusedParameters",
-    "isolatedModules",
-    "checkJs",
-    "forceConsistentCasingInFileNames",
-    "outDir"
-)
+const linebreak = "\n"
 
-typealias ConfigItemGroup = Set (
-    "base",
-    "strict",
-    "strictest",
-    "monorepo",
-    "library",
-    "dom",
-    "notdom",
-    "library",
-    "transpiling",
-    "nottranspiling"
-)
-
-typealias ConfigItemvalue = String | Boolean | List<String>
-
-class ConfigItem { 
-    /// The name of the configuration item.
-    name: ConfigItemName
-
-    /// The group that the configuration item belongs to.
-    group: ConfigItemGroup
-
-    /// The comment for a group of configuration items (i.e. 'strict' or 'base')
-    groupComment: String
-
-    /// The comment for a specific configuration item.
-    comment: String
-}
-
-const ConfigItems: Listing<ConfigItem> = new Listing {
-
-    /// Base Items
-    ConfigItem { 
+const ConfigItems: List<Schema.CheatSheetItem> =  List (
+    new Schema.CheatSheetItem { 
         name = "esModuleInterop" 
         group = "base"
-        //groupComment = "\/*** Base Items ***\/"
+        groupComment = "/*** Base Items ***/"
         comment = "Emit __esModule interop" 
-        }
-    ConfigItem { 
+        },
+    new Schema.CheatSheetItem { 
         name = "skipLibCheck"
         group = "base"
         groupComment = ""
         comment = "Skip type checking of declaration files" 
-        }
-    ConfigItem { 
+        },
+    new Schema.CheatSheetItem { 
         name = "target"
         group = "base"
         groupComment = ""
         comment = "Set the target version of ECMAScript" 
-        }
-    ConfigItem { 
+        },
+    new Schema.CheatSheetItem { 
         name = "allowJs"
         group = "base"
         groupComment = ""
         comment = "Allow JavaScript files to be compiled"
-        }
-    ConfigItem { 
+        },
+    new Schema.CheatSheetItem { 
         name = "resolveJsonModule"
         group = "base"
         groupComment = ""
         comment = "Include modules without extension"
-        }
-    ConfigItem { 
+        },
+    new Schema.CheatSheetItem { 
         name = "moduleDetection"
         group = "base"
         groupComment = ""
         comment = "Detect module type"
-        }
-    ConfigItem {
+        },
+    new Schema.CheatSheetItem {
         name = "isolatedModules"
         group = "base"
         groupComment = ""
         comment = "Ensure that each file is a separate module" 
-        }
+        },
 
-    /// Strict Items
-    ConfigItem { 
+    new Schema.CheatSheetItem { 
         name = "strict"
         group = "strict"
-        //groupComment = "\/*** Strict Items ***\/"
+        groupComment = "/*** Strict Items ***/"
         comment = "Enable all strict type checking options"
-        }
-    ConfigItem { 
+        },
+    new Schema.CheatSheetItem { 
         name = "noUncheckedIndexedAccess"
         group = "strict"
         groupComment = ""
         comment = "Disallow access to non-nullable properties of an object"
-        }
+        },
 
-    /// Library Items
-    ConfigItem { 
+    new Schema.CheatSheetItem { 
         name = "declaration"
         group = "library"
-        //groupComment = "\/*** Library Items ***\/"
+        groupComment = "/*** Library Items ***/"
         comment = "Generate declaration files" 
-        }
+        },
 
-    /// Monorepo Items
-    ConfigItem { 
+    new Schema.CheatSheetItem { 
         name = "declarationMap"
         group = "monorepo"
-        //groupComment = "\/*** Monorepo Items ***\/"
+        groupComment = "/*** Monorepo Items ***/"
         comment = "Generate source maps for declaration files"
-        }
-    ConfigItem { 
+        },
+    new Schema.CheatSheetItem { 
         name = "declarationDir"
         group = "monorepo"
         groupComment = ""
         comment = "Output directory for declaration files"
-        }
-    ConfigItem { 
+        },
+    new Schema.CheatSheetItem { 
         name = "emitDeclarationOnly"
         group = "monorepo"
         groupComment = ""
         comment = "Only output declaration files"
-        }
+        },
 
-    /// Not Using Dom Items
-    ConfigItem { 
+    new Schema.CheatSheetItem { 
         name = "lib"
         group = "notdom"
-        //groupComment = "\/*** Not Using Dom Items ***\/"
+        groupComment = "/*** Not Using Dom Items ***/"
         comment = "Specify library files to be included in the compilation"
-        }
+        },
 
-    /// Transpiling Items
-    ConfigItem { 
+    new Schema.CheatSheetItem { 
         name = "module"
         group = "transpiling"
-        //groupComment = "\/*** Transpiling Items ***\/"
+        groupComment = "/*** Transpiling Items ***/"
         comment = "Specify module code generation"
-        }
-    ConfigItem { 
+        },
+    new Schema.CheatSheetItem { 
         name = "noEmit"
         group = "transpiling"
         groupComment = ""
         comment = "Do not emit output files"
-        }
+        },
 
-    /// Not Transpiling Items
-    ConfigItem { 
+    new Schema.CheatSheetItem { 
         name = "module"
         group = "nottranspiling"
-        //groupComment = "\/*** Not Transpiling Items ***\/"
+        groupComment = "/*** Not Transpiling Items ***/"
         comment = "Specify module code generation" 
-        }
-    ConfigItem { 
+        },
+    new Schema.CheatSheetItem { 
         name = "noEmit"
         group = "nottranspiling"
         groupComment = ""
         comment = "Do not emit output files" 
-        }
+        },
 
-    /// Strictest Items
-    ConfigItem { 
+    new Schema.CheatSheetItem { 
         name = "noUncheckedIndexedAccess"
         group = "strictest"
-        //groupComment = "\/*** Strictest Items ***\/"
+        groupComment = "/*** Strictest Items ***/"
         comment = "Disallow access to non-nullable properties of an object" 
-        }
-    ConfigItem { 
+        },
+    new Schema.CheatSheetItem { 
         name = "allowUnusedLabels"
         group = "strictest"
         groupComment = ""
         comment = "Allow unused labels" 
-        }
-    ConfigItem { 
+        },
+    new Schema.CheatSheetItem { 
         name = "allowUnreachableCode"
         group = "strictest"
         groupComment = ""
         comment = "Allow unreachable code"
-        }
-    ConfigItem { 
+        },
+    new Schema.CheatSheetItem { 
         name = "exactOptionalPropertyTypes"
         group = "strictest"
         groupComment = ""
         comment = "Require that optional properties are exactly the type they are declared as" 
-        }
-    ConfigItem { 
+        },
+    new Schema.CheatSheetItem { 
         name = "noFallthroughCasesInSwitch"
         group = "strictest"
         groupComment = ""
         comment = "Disallow fallthrough cases in switch statements" 
-        }
-    ConfigItem { 
+        },
+    new Schema.CheatSheetItem { 
         name = "noImplicitOverride"
         group = "strictest"
         groupComment = ""
         comment = "Ensure that overriding methods are explicitly marked as such" 
-        }
-    ConfigItem { 
+        },
+    new Schema.CheatSheetItem { 
         name = "noImplicitReturns"
         group = "strictest"
         groupComment = ""
         comment = "Ensure that all code paths return a value"
-        }
-    ConfigItem { 
+        },
+    new Schema.CheatSheetItem { 
         name = "noPropertyAccessFromIndexSignature"
         group = "strictest"
         groupComment = ""
         comment = "Disallow property access from index signatures" 
-        }
-    ConfigItem { 
+        },
+    new Schema.CheatSheetItem { 
         name = "noUncheckedIndexedAccess"
         group = "strictest"
         groupComment = ""
         comment = "Disallow access to non" 
         }
-}
+)
 
+function lookupConfigItem(name: String): Schema.CheatSheetItem? = 
+    ConfigItems.findOrNull((it) -> it.name == name)
 
-class TsConfig {
-    /// Use the 'Base' configuration from TotallyTypescript's definitions. Recommended.
-    useBase: Boolean
-
-    /// Use the 'Strict' configuration from TotallyTypescript's definitions. Recommended.
-    useStrict: Boolean
-
-    /// Use the 'Strictest' configuration from TotallyTypescript's definitions. Not recommended.
-    useStrictest: Boolean
-
-    /// Use the 'Transpiling' configuration from TotallyTypescript's definitions. Optional.
-    useTranspiling: Boolean
-
-    /// Use the 'Library' configuration from TotallyTypescript's definitions. Optional.
-    useLibrary: Boolean
-
-    /// Use the 'Monorepo' configuration from TotallyTypescript's definitions. Optional.
-    useMonorepo: Boolean
-
-    /// Use the 'Dom' configuration from TotallyTypescript's definitions. Optional.
-    useDom: Boolean
-}
-
-local typealias InterimTsConfig = Map<String, Any>
-function runTsConfig(config: TsConfig): InterimTsConfig = 
-     List (
-        Base.addBaseItems(Base.Base, config.useBase) + 
+/// Build the TsConfig module with the given configuration.
+function runTsConfig(config: Any) = 
+      List (
+        Base.addBaseItems(Base.Base, config.useBase) +
         Dom.addDomItems(Dom.Dom, config.useDom) + 
         Strict.addStrictItems(Strict.Strict, config.useStrict) +
         Strictest.addStrictestItems(Strictest.Strictest, config.useStrictest) +
@@ -294,3 +206,55 @@ function runTsConfig(config: TsConfig): InterimTsConfig =
         NotTranspiling.addNotTranspilingItems(NotTranspiling.NotTranspiling, !config.useTranspiling) +
         NotDom.addNotDomItems(NotDom.NotDom, !config.useDom) 
      ).filter((it) -> it != null)[0]
+
+function renderElement(value: Any): String =
+
+    if (value is String) #"\#(value)"#
+    else if (value is Boolean) #"\#(value)"#
+    else if (value is List) #"[\#(renderElement(value.getOrNull(0)))]"#
+    else ""
+
+function renderTsConfigWithComments(config: Schema.CheatSheetItem): String = 
+     let (items = runTsConfig(config))
+        if (items.isEmpty) 
+            "No configuration items selected."
+        
+        else new Listing<String> {
+            for(name, value in items) {
+                let (item:ConfigItem? = lookupConfigItem(name))
+                new Listing<String> {
+                    when (!(item?.groupComment?.isEmpty ?? true)) {
+                        linebreak
+                        #"\#t\#(item.groupComment)"#
+                    }
+                    when (item != null) { 
+                        #"\#t"\#(item.name)": \#(renderElement(value)), \#t\#t// \#(item.comment)"# 
+                        }
+                }.join("\n")
+            }
+        }.toList().filter((line) -> line != null && !line.isEmpty).toListing().join("\n")
+
+
+function renderTsConfig(config: Any, root:Schema.RootSchema, amend: Schema.AmendSchema?) = 
+    new Mapping {
+        ["compilerOptions"] = let (items = runTsConfig(config))
+            new Mapping {
+                for(name, value in items) {
+                    [name] = if (!amend.isEmpty && amend.getOrNull(name) != null ) 
+                                renderElement(amend.getOrNull(name))
+                             else 
+                                renderElement(value)
+                }
+                when(!amend.isEmpty) {
+                    for (name, value in amend) {
+                        when (items.getOrNull(name) == null) {
+                            [name] = renderElement(value)
+                        }
+                    }
+                }
+            }
+        when (root.`extends` != "") { ["extends"] = root.`extends` }
+        when (!root.files.isEmpty) { ["files"] = root.files }
+        when (!root.include.isEmpty) { ["include"] = root.include }
+        when (!root.exclude.isEmpty) { ["exclude"] = root.exclude }
+    }

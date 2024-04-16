@@ -1,8 +1,9 @@
 module TsConfig.Default
 
-import "./TsConfig.pkl"
+import "schema.pkl" as Schema
+import "render.pkl" as Render
 
-config: TsConfig.TsConfig = new {
+config = new Schema.CompilerOptionsSchema{
   useBase = true
   useStrict = true
   useStrictest = false
@@ -12,26 +13,26 @@ config: TsConfig.TsConfig = new {
   useTranspiling = true
 }
 
-root = new TsConfig.Root {
-  `extends` = ""
+root = new Schema.RootSchema {
   files = new Listing {}
   include = new Listing {}
   exclude = new Listing {}
 }
 
+amend = new Schema.AmendSchema { }
+
+outputFileName: String = "tsconfig.json"
+
 output {
   files {
-    ["./totallytsconfig.json"] {
-      value = TsConfig.renderTsConfig(config, root)
+    [outputFileName] {
+      value = Render.renderTsConfig(config, root, amend)
       renderer = new JsonRenderer {
-      /***
-        //converters {
-          //[Pair] = (pair) ->  List(pair.first, pair.second).join(": ")
-        //}
+        converters {
+          [Pair] = (pair) ->  List(pair.first, pair.second).join(": ")
+        }
       }
       //text = "{\n\"compilerOptions\" : {" + TsConfig.renderTsConfigWithComments(config).dropLast(1) + "\n\t}\n}"
-      ***/
       }
     }
   }
-}

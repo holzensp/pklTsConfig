@@ -32,6 +32,13 @@ root {
         "tests.ts"
         }
 }
+
+amend {
+    ["strictNullChecks"] = true
+    ["allowJs"] = false
+}
+
+outputFileName = "totally_tsconfig.json"
 ```
 
 ## Config Element
@@ -86,6 +93,40 @@ root {
         "include.ts"
     }
 }
+```
+
+### Amend Element
+
+The amend element enables you to:
+   - Overwrite a setting from the Cheat Sheet that you want to have a different value.
+   - Add settings that aren't provided in the cheat sheet.
+
+For example, if you want to investigate the performance of your Typescript code, you 
+can use the amend element below:
+
+```
+amend {
+    extendedDiagnostics: true
+    generateCpuProfile: true
+}
+```
+
+The amend element is **type safe** for the setting names (values are coming).  If you use an element
+not supported in the [TsConfig manual](https://www.typescriptlang.org/tsconfig#watch-watchFile), pkl will produce a evaluation error.  For example, the following
+settings will produce an error:
+
+```
+amend {
+    compileToRust: true
+    debugMode: true
+}
+```
+
+### outputFileName Element
+The outputFileName name lets you set the name of the produced by Pkl.
+
+```
+outputFileName = "totally_tsconfig.json
 ```
 
 To build, run `pkl eval tsconfig.pkl -m .`, and it will create a `tsconfig.json` in the same directory.

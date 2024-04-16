@@ -1,0 +1,259 @@
+@ModuleInfo { minPklVersion = "0.25.0" }
+module Schema
+
+typealias ConfigItemValue = String | Boolean | List<String>
+//typealias CheatSheetItem = Pair<CheatSheetItemName, ConfigItemValue>
+
+typealias FileName = String(contains(".ts") || contains(".tsx") || contains(".json") || contains(".js"))
+typealias FileList = Listing<FileName>
+
+class pklTsConfigSchema {
+    compilerOptions: CompilerOptionsSchema
+    root: RootSchema?
+    amend: AmendSchema?
+}
+
+class CompilerOptionsSchema {
+
+    /// Use the 'Base' configuration from TotallyTypescript's definitions. Recommended.
+    useBase: Boolean
+
+    /// Use the 'Strict' configuration from TotallyTypescript's definitions. Recommended.
+    useStrict: Boolean
+
+    /// Use the 'Strictest' configuration from TotallyTypescript's definitions. Not recommended.
+    useStrictest: Boolean
+
+    /// Use the 'Transpiling' configuration from TotallyTypescript's definitions. Optional.
+    useTranspiling: Boolean
+
+    /// Use the 'Library' configuration from TotallyTypescript's definitions. Optional.
+    useLibrary: Boolean
+
+    /// Use the 'Monorepo' configuration from TotallyTypescript's definitions. Optional.
+    useMonorepo: Boolean
+
+    /// Use the 'Dom' configuration from TotallyTypescript's definitions. Optional.
+    useDom: Boolean
+}
+
+class RootSchema {
+    `extends`: FileName?
+    files: FileList
+    include: FileList
+    exclude: FileList
+}
+
+typealias AmendSchema = Mapping<CompilerOptionsItem, ConfigItemValue>
+
+typealias CheatSheetItemName = 
+    "esModuleInterop"|
+    "skipLibCheck"|
+    "target"|
+    "allowJs"|
+    "resolveJsonModule"|
+    "moduleDetection"|
+    "isolatedModules"|
+    "strict"|
+    "noUncheckedIndexedAccess"|
+    "declaration"|
+    "declarationMap"|
+    "declarationDir"|
+    "emitDeclarationOnly"|
+    "lib"|
+    "module"|
+    "noEmit"|
+    "strict"|
+    "noUncheckedIndexedAccess"|
+    "allowUnusedLabels"|
+    "allowUnreachableCode"|
+    "exactOptionalPropertyTypes"|
+    "noFallthroughCasesInSwitch"|
+    "noImplicitOverride"|
+    "noImplicitReturns"|
+    "noPropertyAccessFromIndexSignature"|
+    "noUncheckedIndexedAccess"|
+    "noUnusedLocals"|
+    "noUnusedParameters"|
+    "isolatedModules"|
+    "checkJs"|
+    "forceConsistentCasingInFileNames"|
+    "outDir"
+
+typealias CheatSheetGroup = 
+    "base"|
+    "strict"|
+    "strictest"|
+    "monorepo"|
+    "library"|
+    "dom"|
+    "notdom"|
+    "library"|
+    "transpiling"|
+    "nottranspiling"
+
+typealias CompilerOptionsItem =
+
+    /*** Type Checking ***/
+    "allowUnreachableCode"|
+    "allowUnusedLabels"|
+    "alwaysStrict"|
+    "exactOptionalPropertyTypes"|
+    "noFallthroughCasesInSwitch"|
+    "noImplicitAny"|
+    "noImplicitOverride"|
+    "noImplicitReturns"|
+    "noImplicitThis"|
+    "noPropertyAccessFromIndexSignature"|
+    "noUncheckedIndexedAccess"|
+    "noUnusedLocals"|
+    "noUnusedParameters"|
+    "strict"|
+    "strictBindCallApply"|
+    "strictFunctionTypes"|
+    "strictNullChecks"|
+    "strictPropertyInitialization"|
+    "useUnknownInCatchVariables"|
+
+    /*** Modules ***/
+    "allowArbitraryExtensions"|
+    "allowImportingTsExtensions"|
+    "allowUmdGlobalAccess"|
+    "baseUrl"|
+    "customConditions"|
+    "`modules`"|
+    "moduleResolution"|
+    "moduleSuffixes"|
+    "noResolve"|
+    "paths"|
+    "resolveJsonModule"|
+    "resolvePackageJsonExports"|
+    "resolvePackageJsonImports"|
+    "rootDir"|
+    "rootDirs"|
+    "typeRoots"|
+    "types"|
+
+    /*** Emit ***/
+    "declaration"|
+    "declarationDir"|
+    "declarationMap"|
+    "downlevelIteration"|
+    "emitBOM"|
+    "emitDeclarationOnly"|
+    "importHelpers"|
+    "importsNotUsedAsValues"|
+    "inlineSourceMap"|
+    "inlineSources"|
+    "mapRoot"|
+    "newLine"|
+    "noEmit"|
+    "noEmitHelpers"|
+    "noEmitOnError"|
+    "outDir"|
+    "outFile"|
+    "preserveConstEnums"|
+    "preserveValueImports"|
+    "removeComments"|
+    "sourceMap"|
+    "sourceRoot"|
+    "stripInternal"|
+
+    /*** JavaScript Support ***/
+    "allowJs"|
+    "checkJs"|
+    "maxNodeModuleJsDepts"|
+
+    /*** Editor Support ***/
+    "disableSizeLimit"|
+    "plugins"|
+
+    /*** Interop Constraints ***/
+    "allowSyntheticDefaultImports"|
+    "esModuleInterop"|
+    "forceConsistentCasingInFileNames"|
+    "isolatedModules"|
+    "preserveSymlinks"|
+    "verbatimModuleSyntax"|
+
+    /*** Backwards Compatibility ***/
+    "charset"|
+    "keyofStringsOnly"|
+    "noImplicitUseStrict"|
+    "noStrictGenericChecks"|
+    "`out"|
+    "suppressExcessPropertyErrors"|
+    "suppressImplicitAnyIndexErrors"|
+
+    /*** Language and Environment ***/
+    "emitDecoratorMetadata"|
+    "experimentalDecorators"|
+    "jsx"|
+    "jsxFactory"|
+    "jsxFragmentFactory"|
+    "jsxImportSource"|
+    "lib"|
+    "moduleDetection"|
+    "noLib"|
+    "reactNamespace"|
+    "target"|
+    "useDefineForClassFields"|
+
+    /*** Compiler Diagnostics ***/
+    "diagnostics"|
+    "explainFiles"|
+    "extendedDiagnostics"|
+    "generateCpuProfile"|
+    "listEmittedFiles"|
+    "listFiles"|
+    "traceResolution"|
+
+    /*** Projects ***/
+    "composite"|
+    "disableReferencedProjectLoad"|
+    "disableSolutionSearching"|
+    "disableSourceOfProjectReferenceRedirect"|
+    "incremental"|
+    "tsBuildInfoFile"|
+
+    /*** Output Formatting ***/
+    "noErrorTruncation"|
+    "preserveWatchOutput"|
+    "pretty"|
+
+    /*** Completeness ***/
+    "skipDefaultLibCheck"|
+    "skipLibCheck"|
+
+    /*** Watch Options ***/
+    "assumeChangesOnlyAffectDirectDependencies"|
+
+    //"watchOptions"|
+    "watchOptions"|
+    "watchFile"|
+    "watchDirectory"|
+    "fallbackPolling"|
+    "synchronousWatchDirectory"|
+    "excludeDirectories"|
+    "excludeFiles"|
+
+    /*** typeAcquisition ***/
+    "typeAcquisition"|
+    "enable"|
+    "include"|
+    "excludedisableFilenameBasedTypeAcquisition"
+
+class CheatSheetItem { 
+
+    /// The name of the configuration item.
+    name: CheatSheetItemName
+
+    /// The group that the configuration item belongs to.
+    group: CheatSheetGroup
+
+    /// The comment for a group of configuration items (i.e. 'strict' or 'base')
+    groupComment: String
+
+    /// The comment for a specific configuration item.
+    comment: String
+}
