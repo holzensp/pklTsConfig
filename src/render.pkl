@@ -233,28 +233,3 @@ function renderTsConfigWithComments(config: Schema.CheatSheetItem): String =
                 }.join("\n")
             }
         }.toList().filter((line) -> line != null && !line.isEmpty).toListing().join("\n")
-
-
-function renderTsConfig(config: Any, root:Schema.RootSchema, amend: Schema.AmendSchema?) = 
-    new Mapping {
-        ["compilerOptions"] = let (items = runTsConfig(config))
-            new Mapping {
-                for(name, value in items) {
-                    [name] = if (!amend.isEmpty && amend.getOrNull(name) != null ) 
-                                renderElement(amend.getOrNull(name))
-                             else 
-                                renderElement(value)
-                }
-                when(!amend.isEmpty) {
-                    for (name, value in amend) {
-                        when (items.getOrNull(name) == null) {
-                            [name] = renderElement(value)
-                        }
-                    }
-                }
-            }
-        when (root.`extends` != "") { ["extends"] = root.`extends` }
-        when (!root.files.isEmpty) { ["files"] = root.files }
-        when (!root.include.isEmpty) { ["include"] = root.include }
-        when (!root.exclude.isEmpty) { ["exclude"] = root.exclude }
-    }

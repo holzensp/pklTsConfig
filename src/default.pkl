@@ -23,16 +23,33 @@ amend = new Schema.AmendSchema { }
 
 outputFileName:Schema.ValidOutputFileName = "tsconfig.json"
 
-output {
-  files {
-    [if (outputFileName == "tsconfig.json") "totally_tsconfig.json" else outputFileName] {
-      value = Render.renderTsConfig(config, root, amend)
-      renderer = new JsonRenderer {
-        converters {
-          [Pair] = (pair) ->  List(pair.first, pair.second).join(": ")
+fixed aggregatedConfig = new Mapping {
+  ["compilerOptions"] = let (items = Render.runTsConfig(config))
+    new Mapping {
+      for(name, value in items) {
+        [name] = if (!amend.isEmpty && amend.getOrNull(name) != null )
+                    Render.renderElement(amend.getOrNull(name))
+                 else
+                    Render.renderElement(value)
+      }
+      when(!amend.isEmpty) {
+        for (name, value in amend) {
+          when (items.getOrNull(name) == null) {
+            [name] = Render.renderElement(value)
+          }
         }
       }
-      //text = "{\n\"compilerOptions\" : {" + TsConfig.renderTsConfigWithComments(config).dropLast(1) + "\n\t}\n}"
-      }
     }
+  when (root.`extends` != "") { ["extends"] = root.`extends` }
+  when (!root.files.isEmpty) { ["files"] = root.files }
+  when (!root.include.isEmpty) { ["include"] = root.include }
+  when (!root.exclude.isEmpty) { ["exclude"] = root.exclude }
+}
+
+output {
+  renderer = new JsonRenderer {}
+  value = aggregatedConfig
+  files {
+    [if (outputFileName == "tsconfig.json") "totally_tsconfig.json" else outputFileName] = output
   }
+}
