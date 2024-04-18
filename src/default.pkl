@@ -40,7 +40,6 @@ forceConsistentCasingInFileNames: Boolean(useStrictest)? = if (!useStrictest) nu
 
 /// Use the 'Dom' configuration from TotallyTypescript's definitions. Optional.
 hidden useDom: Boolean = true
-lib: List<String>(!useDom)? = if (useDom) null else List("es2022")
 
 /// Use the 'Library' configuration from TotallyTypescript's definitions. Optional.
 hidden useLibrary: Boolean = false
@@ -58,6 +57,8 @@ hidden useTranspiling: Boolean = true
 outDir: String(useTranspiling)? = if (!useTranspiling) null else "dist"
 noEmit: Boolean(!useTranspiling)? = if (useTranspiling) null else true
 
+lib: List<String>(!useDom)? = List("es2022")
+
 hidden root: Schema.RootSchema
 
 hidden amend: Schema.AmendSchema
@@ -65,23 +66,16 @@ hidden amend: Schema.AmendSchema
 hidden outputFileName:Schema.ValidOutputFileName = "tsconfig.json"
 
 hidden fixed aggregatedConfig = new Mapping {
-  local items = new Listing {
-    module
-  }.fold(Map(), (acc, it) -> acc + it.toMap())
+  local items = module.toMap()
 
   ["compilerOptions"] =
     new Mapping {
       for(name, value in items) {
-        [name] = if (!amend.isEmpty && amend.getOrNull(name) != null )
-                    amend.getOrNull(name)
-                 else
-                    value
+        [name] = amend.getOrNull(name) ?? value
       }
-      when(!amend.isEmpty) {
-        for (name, value in amend) {
-          when (items.getOrNull(name) == null) {
-            [name] = value
-          }
+      for (name, value in amend) {
+        when (items.getOrNull(name) == null) {
+          [name] = value
         }
       }
     }
