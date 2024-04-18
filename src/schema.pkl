@@ -20,9 +20,6 @@ class CompilerOptionsSchema {
 
     /// Use the 'Library' configuration from TotallyTypescript's definitions. Optional.
     useLibrary: Boolean
-
-    /// Use the 'Monorepo' configuration from TotallyTypescript's definitions. Optional.
-    useMonorepo: Boolean
 }
 
 class RootSchema {

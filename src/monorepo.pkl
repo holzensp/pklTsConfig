@@ -1,5 +1,0 @@
-module Monorepo
-
-declarationMap: Boolean = true
-declarationDir: String = "dist"
-emitDeclarationOnly: Boolean = true

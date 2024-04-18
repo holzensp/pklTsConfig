@@ -5,11 +5,9 @@ import "schema.pkl" as Schema
 import "transpiling.pkl" as Transpiling
 import "nottranspiling.pkl" as NotTranspiling
 import "library.pkl" as Library
-import "monorepo.pkl" as Monorepo
 import "notdom.pkl" as NotDom
 
 hidden config: Schema.CompilerOptionsSchema = new {
-  useMonorepo = false
   useLibrary = false
   useTranspiling = true
 }
@@ -51,6 +49,12 @@ forceConsistentCasingInFileNames: Boolean(useStrictest)? = if (!useStrictest) nu
 /// Use the 'Dom' configuration from TotallyTypescript's definitions. Optional.
 hidden useDom: Boolean = true
 
+/// Use the 'Monorepo' configuration from TotallyTypescript's definitions. Optional.
+hidden useMonorepo: Boolean = false
+declarationMap: Boolean(useMonorepo)? = if (!useMonorepo) null else true
+declarationDir: String(useMonorepo)? = if (!useMonorepo) null else "dist"
+emitDeclarationOnly: Boolean(useMonorepo)? = if (!useMonorepo) null else true
+
 
 hidden root: Schema.RootSchema
 
@@ -62,7 +66,6 @@ hidden fixed aggregatedConfig = new Mapping {
   local items = new Listing {
     module
     when (config.useLibrary) { new Library {} }
-    when (config.useMonorepo) { new Monorepo {} }
     when (config.useTranspiling) { new Transpiling {} }
     when (!config.useTranspiling) { new NotTranspiling {} }
     when (!useDom) { new NotDom {} }
