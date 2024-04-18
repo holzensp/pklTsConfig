@@ -1,6 +1,7 @@
 module TsConfig.Default
 
 import "schema.pkl" as Schema
+import "CompilerOptions.pkl"
 
 typealias TTSConfig =
   "Base"
@@ -47,40 +48,43 @@ local useBaseOrStrictest = useBase || useStrictest
 local useStrictOrDom = useStrict || useDom
 local useStrictOrStrictestOrDom = useStrictOrDom || useStrictest
 
-esModuleInterop: Boolean(useBase)? = if (!useBase) null else true
-skipLibCheck: Boolean(useBase)? = if (!useBase) null else true
-target: String(useBase)? = if (!useBase) null else "es2022"
-allowJs: Boolean(useBase)? = if (!useBase) null else true
-resolveJsonModule: Boolean(useBase)? = if (!useBase) null else true
-moduleDetection: String(useBase)? = if (!useBase) null else "force"
-isolatedModules: Boolean(useBaseOrStrictest)? = if (!useBaseOrStrictest) null else true
+compilerOptions: CompilerOptions = new {
+  esModuleInterop = if (!useBase) null else true
+  skipLibCheck = if (!useBase) null else true
+  target = if (!useBase) null else "es2022"
+  allowJs = if (!useBase) null else true
+  resolveJsonModule = if (!useBase) null else true
+  moduleDetection = if (!useBase) null else "force"
+  isolatedModules = if (!useBaseOrStrictest) null else true
 
-strict: Boolean(useStrictOrDom)? = if (!useStrictOrDom) null else true
-noUncheckedIndexedAccess: Boolean(useStrictOrStrictestOrDom)? = if (!useStrictOrStrictestOrDom) null else true
+  strict = if (!useStrictOrDom) null else true
+  noUncheckedIndexedAccess = if (!useStrictOrStrictestOrDom) null else true
 
-allowUnusedLabels: Boolean(useStrictest)? = if (!useStrictest) null else false
-allowUnreachableCode: Boolean(useStrictest)? = if (!useStrictest) null else false
-exactOptionalPropertyTypes: Boolean(useStrictest)? = if (!useStrictest) null else true
-noFallthroughCasesInSwitch: Boolean(useStrictest)? = if (!useStrictest) null else true
-noImplicitOverride: Boolean(useStrictest)? = if (!useStrictest) null else true
-noImplicitReturns: Boolean(useStrictest)? = if (!useStrictest) null else true
-noPropertyAccessFromIndexSignature: Boolean(useStrictest)? = if (!useStrictest) null else true
-noUnusedLocals: Boolean(useStrictest)? = if (!useStrictest) null else true
-noUnusedParameters: Boolean(useStrictest)? = if (!useStrictest) null else true
-checkJs: Boolean(useStrictest)? = if (!useStrictest) null else true
-forceConsistentCasingInFileNames: Boolean(useStrictest)? = if (!useStrictest) null else true
+  allowUnusedLabels = if (!useStrictest) null else false
+  allowUnreachableCode = if (!useStrictest) null else false
+  exactOptionalPropertyTypes = if (!useStrictest) null else true
+  noFallthroughCasesInSwitch = if (!useStrictest) null else true
+  noImplicitOverride = if (!useStrictest) null else true
+  noImplicitReturns = if (!useStrictest) null else true
+  noPropertyAccessFromIndexSignature = if (!useStrictest) null else true
+  noUnusedLocals = if (!useStrictest) null else true
+  noUnusedParameters = if (!useStrictest) null else true
+  checkJs = if (!useStrictest) null else true
+  forceConsistentCasingInFileNames = if (!useStrictest) null else true
 
-declaration: Boolean(useLibrary)? = if (!useLibrary) null else true
+  declaration = if (!useLibrary) null else true
 
-declarationMap: Boolean(useMonorepo)? = if (!useMonorepo) null else true
-declarationDir: String(useMonorepo)? = if (!useMonorepo) null else "dist"
-emitDeclarationOnly: Boolean(useMonorepo)? = if (!useMonorepo) null else true
+  declarationMap = if (!useMonorepo) null else true
+  declarationDir = if (!useMonorepo) null else "dist"
+  emitDeclarationOnly = if (!useMonorepo) null else true
 
-`module`: String = if (!useTranspiling) "preserve" else "NodeNext"
-outDir: String(useTranspiling)? = if (!useTranspiling) null else "dist"
-noEmit: Boolean(!useTranspiling)? = if (useTranspiling) null else true
+  `module` = if (!useTranspiling) "preserve" else "NodeNext"
+  outDir = if (!useTranspiling) null else "dist"
+  noEmit = if (useTranspiling) null else true
 
-lib: List<String>(!useDom)? = List("es2022")
+  lib = if (useDom) null else List("es2022")
+}
+
 
 hidden root: Schema.RootSchema
 
@@ -88,10 +92,10 @@ hidden amend: Schema.AmendSchema
 
 hidden outputFileName:Schema.ValidOutputFileName = "tsconfig.json"
 
-hidden fixed aggregatedConfig = new Mapping {
-  ["compilerOptions"] = (module.toDynamic()) {
+hidden fixed aggregatedConfig = (module.toDynamic()) {
+  compilerOptions = (module.compilerOptions.toMap().toMapping()) {
     ...amend
-  }.toMap()
+  }
   ...root.toMap()
 }
 
