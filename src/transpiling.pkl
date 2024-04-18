@@ -1,4 +1,0 @@
-module Transpiling
-
-`module`: String = "NodeNext"
-outDir: String = "dist"

@@ -15,11 +15,6 @@ class pklTsConfigSchema {
 }
 
 class CompilerOptionsSchema {
-    /// Use the 'Transpiling' configuration from TotallyTypescript's definitions. Optional.
-    useTranspiling: Boolean
-
-    /// Use the 'Library' configuration from TotallyTypescript's definitions. Optional.
-    useLibrary: Boolean
 }
 
 class RootSchema {

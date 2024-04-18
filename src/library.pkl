@@ -1,3 +1,0 @@
-module Library
-
-declaration: Boolean = true
