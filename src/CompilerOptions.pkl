@@ -26,3 +26,6 @@ emitDeclarationOnly: Boolean?
 outDir: String?
 noEmit: Boolean?
 lib: List<String>?
+
+strictNullChecks: Boolean?
+// TODO: Port missing properties from indirect definitions in `schema.pkl`

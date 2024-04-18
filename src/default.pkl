@@ -106,14 +106,9 @@ compilerOptions: CompilerOptions = new {
 
 hidden root: Schema.RootSchema
 
-hidden amend: Schema.AmendSchema
-
 hidden outputFileName:Schema.ValidOutputFileName = "tsconfig.json"
 
 hidden fixed aggregatedConfig = (module.toDynamic()) {
-  compilerOptions = (module.compilerOptions.toMap().toMapping()) {
-    ...amend
-  }
   ...root.toMap()
 }
 

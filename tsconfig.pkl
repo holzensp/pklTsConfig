@@ -20,9 +20,9 @@ root {
     }
 }
 
-amend {
-    ["strictNullChecks"] = true
-    ["allowJs"] = false
+compilerOptions {
+    strictNullChecks = true
+    allowJs = false
 }
 
 outputFileName = "tsconfig.json"
