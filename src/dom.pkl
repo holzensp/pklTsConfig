@@ -1,4 +1,0 @@
-module Dom
-
-strict: Boolean = true
-noUncheckedIndexedAccess: Boolean = true

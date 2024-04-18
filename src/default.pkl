@@ -6,11 +6,9 @@ import "transpiling.pkl" as Transpiling
 import "nottranspiling.pkl" as NotTranspiling
 import "library.pkl" as Library
 import "monorepo.pkl" as Monorepo
-import "dom.pkl" as Dom
 import "notdom.pkl" as NotDom
 
 hidden config: Schema.CompilerOptionsSchema = new {
-  useDom = true
   useMonorepo = false
   useLibrary = false
   useTranspiling = true
@@ -18,6 +16,8 @@ hidden config: Schema.CompilerOptionsSchema = new {
 
 hidden fixed useBaseOrStrictest = useBase || useStrictest
 hidden fixed useStrictOrStrictest = useStrict || useStrictest
+hidden fixed useStrictOrDom = useStrict || useDom
+hidden fixed useStrictOrStrictestOrDom = useStrictOrDom || useStrictest
 
 /// Use the 'Base' configuration from TotallyTypescript's definitions. Recommended.
 hidden useBase: Boolean = true
@@ -31,8 +31,8 @@ isolatedModules: Boolean(useBaseOrStrictest)? = if (!useBaseOrStrictest) null el
 
 /// Use the 'Strict' configuration from TotallyTypescript's definitions. Recommended.
 hidden useStrict: Boolean = true
-strict: Boolean(useStrict)? = if (!useStrict) null else true
-noUncheckedIndexedAccess: Boolean(useStrictOrStrictest)? = if (!useStrictOrStrictest) null else true
+strict: Boolean(useStrictOrDom)? = if (!useStrictOrDom) null else true
+noUncheckedIndexedAccess: Boolean(useStrictOrStrictestOrDom)? = if (!useStrictOrStrictestOrDom) null else true
 
 /// Use the 'Strictest' configuration from TotallyTypescript's definitions. Not recommended.
 hidden useStrictest: Boolean = false
@@ -48,6 +48,9 @@ noUnusedParameters: Boolean(useStrictest)? = if (!useStrictest) null else true
 checkJs: Boolean(useStrictest)? = if (!useStrictest) null else true
 forceConsistentCasingInFileNames: Boolean(useStrictest)? = if (!useStrictest) null else true
 
+/// Use the 'Dom' configuration from TotallyTypescript's definitions. Optional.
+hidden useDom: Boolean = true
+
 
 hidden root: Schema.RootSchema
 
@@ -58,12 +61,11 @@ hidden outputFileName:Schema.ValidOutputFileName = "tsconfig.json"
 hidden fixed aggregatedConfig = new Mapping {
   local items = new Listing {
     module
-    when (config.useDom) { new Dom {} }
     when (config.useLibrary) { new Library {} }
     when (config.useMonorepo) { new Monorepo {} }
     when (config.useTranspiling) { new Transpiling {} }
     when (!config.useTranspiling) { new NotTranspiling {} }
-    when (!config.useDom) { new NotDom {} }
+    when (!useDom) { new NotDom {} }
   }.fold(Map(), (acc, it) -> acc + it.toMap())
 
   ["compilerOptions"] =

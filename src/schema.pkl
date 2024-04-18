@@ -23,9 +23,6 @@ class CompilerOptionsSchema {
 
     /// Use the 'Monorepo' configuration from TotallyTypescript's definitions. Optional.
     useMonorepo: Boolean
-
-    /// Use the 'Dom' configuration from TotallyTypescript's definitions. Optional.
-    useDom: Boolean
 }
 
 class RootSchema {

@@ -1,11 +1,8 @@
 //amends "package://pkg.pkl-lang.org/github.com/PaulJPhilp/pklTsConfig/pklTsConfig@0.5.1#/TsConfigDefault.pkl"
 amends "./src/default.pkl"
 
-config {
-    useDom = false
-}
-
 useStrictest = true
+useDom = false
 
 root {
     `extends` = "project_tsconfig.json"
