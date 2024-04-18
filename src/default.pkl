@@ -29,6 +29,7 @@ resolveJsonModule: Boolean(useBase)? = if (!useBase) null else true
 moduleDetection: String(useBase)? = if (!useBase) null else "force"
 isolatedModules: Boolean(useBaseOrStrictest)? = if (!useBaseOrStrictest) null else true
 
+/// Use the 'Strict' configuration from TotallyTypescript's definitions. Recommended.
 hidden useStrict: Boolean = true
 strict: Boolean(useStrict)? = if (!useStrict) null else true
 noUncheckedIndexedAccess: Boolean(useStrictOrStrictest)? = if (!useStrictOrStrictest) null else true
