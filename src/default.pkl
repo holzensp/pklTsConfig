@@ -34,7 +34,7 @@ amend = new Schema.AmendSchema { }
 outputFileName:Schema.ValidOutputFileName = "tsconfig.json"
 
 fixed aggregatedConfig = new Mapping {
-  local items = List (
+  local items =
     Base.addBaseItems(Base.Base, config.useBase) +
     Dom.addDomItems(Dom.Dom, config.useDom) +
     Strict.addStrictItems(Strict.Strict, config.useStrict) +
@@ -44,7 +44,6 @@ fixed aggregatedConfig = new Mapping {
     Transpiling.addTranspilingItems(Transpiling.Transpiling, config.useTranspiling) +
     NotTranspiling.addNotTranspilingItems(NotTranspiling.NotTranspiling, !config.useTranspiling) +
     NotDom.addNotDomItems(NotDom.NotDom, !config.useDom)
-  ).filter((it) -> it != null)[0]
 
   ["compilerOptions"] =
     new Mapping {
