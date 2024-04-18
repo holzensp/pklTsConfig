@@ -1,5 +1,5 @@
-//amends "package://pkg.pkl-lang.org/github.com/PaulJPhilp/pklTsConfig/pklTsConfig@0.5.1#/TsConfigDefault.pkl"
-amends "./src/default.pkl"
+//amends "package://pkg.pkl-lang.org/github.com/PaulJPhilp/pklTsConfig/pklTsConfig@0.5.1#/TsConfig.pkl"
+amends "./src/TsConfig.pkl"
 
 totallyTypescriptConfigurations {
   "Strictest"
@@ -7,20 +7,23 @@ totallyTypescriptConfigurations {
 }
 
 `extends` = "project_tsconfig.json"
+
 files {
-    "main.ts"
-    "index.ts"
-    }
+  "main.ts"
+  "index.ts"
+}
+
 exclude {
-    "exlude.ts"
-    }
+  "exlude.ts"
+}
+
 include {
-    "include.ts"
+  "include.ts"
 }
 
 compilerOptions {
-    strictNullChecks = true
-    allowJs = false
+  strictNullChecks = true
+  allowJs = false
 }
 
 outputFileName = "tsconfig.json"

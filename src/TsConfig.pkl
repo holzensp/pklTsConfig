@@ -1,4 +1,4 @@
-module TsConfig.Default
+module TsConfig
 
 import "schema.pkl" as Schema
 import "CompilerOptions.pkl"
@@ -110,11 +110,7 @@ files: Listing<FileName>
 include: Listing<FileName>
 exclude: Listing<FileName>
 
-hidden root: Schema.RootSchema
-
 hidden outputFileName:Schema.ValidOutputFileName = "tsconfig.json"
-
-hidden fixed aggregatedConfig = module.toDynamic()
 
 output {
   renderer = new JsonRenderer {
@@ -124,7 +120,6 @@ output {
       [Listing] = (it) -> if (it.isEmpty) null else it
     }
   }
-  value = aggregatedConfig
   files {
     [if (outputFileName == "tsconfig.json") "totally_tsconfig.json" else outputFileName] = output
   }
