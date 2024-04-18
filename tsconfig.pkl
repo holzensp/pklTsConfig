@@ -3,8 +3,9 @@ amends "./src/default.pkl"
 
 config {
     useDom = false
-    useStrictest = true
 }
+
+useStrictest = true
 
 root {
     `extends` = "project_tsconfig.json"

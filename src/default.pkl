@@ -2,7 +2,6 @@ module TsConfig.Default
 
 import "schema.pkl" as Schema
 
-import "strictest.pkl" as Strictest
 import "transpiling.pkl" as Transpiling
 import "nottranspiling.pkl" as NotTranspiling
 import "library.pkl" as Library
@@ -11,12 +10,14 @@ import "dom.pkl" as Dom
 import "notdom.pkl" as NotDom
 
 hidden config: Schema.CompilerOptionsSchema = new {
-  useStrictest = false
   useDom = true
   useMonorepo = false
   useLibrary = false
   useTranspiling = true
 }
+
+hidden fixed useBaseOrStrictest = useBase || useStrictest
+hidden fixed useStrictOrStrictest = useStrict || useStrictest
 
 hidden useBase: Boolean = true
 esModuleInterop: Boolean(useBase)? = if (!useBase) null else true
@@ -25,11 +26,26 @@ target: String(useBase)? = if (!useBase) null else "es2022"
 allowJs: Boolean(useBase)? = if (!useBase) null else true
 resolveJsonModule: Boolean(useBase)? = if (!useBase) null else true
 moduleDetection: String(useBase)? = if (!useBase) null else "force"
-isolatedModules: Boolean(useBase)? = if (!useBase) null else true
+isolatedModules: Boolean(useBaseOrStrictest)? = if (!useBaseOrStrictest) null else true
 
 hidden useStrict: Boolean = true
 strict: Boolean(useStrict)? = if (!useStrict) null else true
-noUncheckedIndexedAccess: Boolean(useStrict)? = if (!useStrict) null else true
+noUncheckedIndexedAccess: Boolean(useStrictOrStrictest)? = if (!useStrictOrStrictest) null else true
+
+/// Use the 'Strictest' configuration from TotallyTypescript's definitions. Not recommended.
+hidden useStrictest: Boolean = false
+allowUnusedLabels: Boolean(useStrictest)? = if (!useStrictest) null else false
+allowUnreachableCode: Boolean(useStrictest)? = if (!useStrictest) null else false
+exactOptionalPropertyTypes: Boolean(useStrictest)? = if (!useStrictest) null else true
+noFallthroughCasesInSwitch: Boolean(useStrictest)? = if (!useStrictest) null else true
+noImplicitOverride: Boolean(useStrictest)? = if (!useStrictest) null else true
+noImplicitReturns: Boolean(useStrictest)? = if (!useStrictest) null else true
+noPropertyAccessFromIndexSignature: Boolean(useStrictest)? = if (!useStrictest) null else true
+noUnusedLocals: Boolean(useStrictest)? = if (!useStrictest) null else true
+noUnusedParameters: Boolean(useStrictest)? = if (!useStrictest) null else true
+checkJs: Boolean(useStrictest)? = if (!useStrictest) null else true
+forceConsistentCasingInFileNames: Boolean(useStrictest)? = if (!useStrictest) null else true
+
 
 hidden root: Schema.RootSchema
 
@@ -41,7 +57,6 @@ hidden fixed aggregatedConfig = new Mapping {
   local items = new Listing {
     module
     when (config.useDom) { new Dom {} }
-    when (config.useStrictest) { new Strictest {} }
     when (config.useLibrary) { new Library {} }
     when (config.useMonorepo) { new Monorepo {} }
     when (config.useTranspiling) { new Transpiling {} }
