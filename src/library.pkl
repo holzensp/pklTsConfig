@@ -11,7 +11,7 @@ const Library: LibraryItems = new LibraryItems {
 function addLibraryItems(LibraryItems: LibraryItems, useLibrary: Boolean): Map = 
     if (useLibrary) 
         new LibraryItems {
-            declaration = LibraryItems.getProperty("declaration")
+            declaration = LibraryItems.declaration
         }.toMap()
     else
         Map()

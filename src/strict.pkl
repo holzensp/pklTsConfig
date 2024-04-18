@@ -16,8 +16,8 @@ const Strict: StrictItems = new StrictItems {
 function addStrictItems(StrictItems: StrictItems, useStrict: Boolean): Map = 
     if (useStrict) 
         new StrictItems{
-            strict = StrictItems.getProperty("strict")
-            noUncheckedIndexedAccess = StrictItems.getProperty("noUncheckedIndexedAccess")
+            strict = StrictItems.strict
+            noUncheckedIndexedAccess = StrictItems.noUncheckedIndexedAccess
         }.toMap()
     else
         Map()

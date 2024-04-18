@@ -11,7 +11,7 @@ const NotDom: NotDomItems = new NotDomItems {
 function addNotDomItems(notDomItems: NotDomItems, useNotDom: Boolean): Map = 
     if (useNotDom) 
         new NotDomItems {
-            lib = notDomItems.getProperty("lib")
+            lib = notDomItems.lib
         }.toMap()
     else
         Map()

@@ -26,13 +26,13 @@ const Base: BaseItems = new  {
 function addBaseItems(baseItems: Object, useBase: Boolean): Map = 
     if (useBase) 
         new  BaseItems {
-            esModuleInterop = baseItems.getProperty("esModuleInterop")
-            skipLibCheck =  baseItems.getProperty("skipLibCheck")
-            target =  baseItems.getProperty("target")
-            allowJs =  baseItems.getProperty("allowJs")
-            resolveJsonModule =  baseItems.getProperty("resolveJsonModule")
-            moduleDetection =  baseItems.getProperty("moduleDetection")
-            isolatedModules =  baseItems.getProperty("isolatedModules")
+            esModuleInterop = baseItems.esModuleInterop
+            skipLibCheck =  baseItems.skipLibCheck
+            target =  baseItems.target
+            allowJs =  baseItems.allowJs
+            resolveJsonModule =  baseItems.resolveJsonModule
+            moduleDetection =  baseItems.moduleDetection
+            isolatedModules =  baseItems.isolatedModules
         }.toMap()
     else
         Map()
