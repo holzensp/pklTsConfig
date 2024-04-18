@@ -2,8 +2,6 @@ module TsConfig.Default
 
 import "schema.pkl" as Schema
 
-import "notdom.pkl" as NotDom
-
 hidden config: Schema.CompilerOptionsSchema
 
 hidden fixed useBaseOrStrictest = useBase || useStrictest
@@ -42,7 +40,7 @@ forceConsistentCasingInFileNames: Boolean(useStrictest)? = if (!useStrictest) nu
 
 /// Use the 'Dom' configuration from TotallyTypescript's definitions. Optional.
 hidden useDom: Boolean = true
-
+lib: List<String>(!useDom)? = if (useDom) null else List("es2022")
 
 /// Use the 'Library' configuration from TotallyTypescript's definitions. Optional.
 hidden useLibrary: Boolean = false
@@ -69,7 +67,6 @@ hidden outputFileName:Schema.ValidOutputFileName = "tsconfig.json"
 hidden fixed aggregatedConfig = new Mapping {
   local items = new Listing {
     module
-    when (!useDom) { new NotDom {} }
   }.fold(Map(), (acc, it) -> acc + it.toMap())
 
   ["compilerOptions"] =
