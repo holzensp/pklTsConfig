@@ -12,12 +12,8 @@ const Monorepo: MonorepoItems = new MonorepoItems {
     emitDeclarationOnly = true
 }
 
-function addMonorepoItems(MonorepoItems: MonorepoItems, useMonorepo: Boolean): Map = 
+function addMonorepoItems(monorepoItems: MonorepoItems, useMonorepo: Boolean): Map =
     if (useMonorepo) 
-        new MonorepoItems {
-            declarationMap = MonorepoItems.declarationMap
-            declarationDir =  MonorepoItems.declarationDir
-            emitDeclarationOnly =  MonorepoItems.emitDeclarationOnly
-        }.toMap()
+        monorepoItems.toMap()
     else
         Map()

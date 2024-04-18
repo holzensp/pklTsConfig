@@ -13,11 +13,8 @@ const Strict: StrictItems = new StrictItems {
     noUncheckedIndexedAccess = true
 }
 
-function addStrictItems(StrictItems: StrictItems, useStrict: Boolean): Map = 
+function addStrictItems(strictItems: StrictItems, useStrict: Boolean): Map =
     if (useStrict) 
-        new StrictItems{
-            strict = StrictItems.strict
-            noUncheckedIndexedAccess = StrictItems.noUncheckedIndexedAccess
-        }.toMap()
+        strictItems.toMap()
     else
         Map()

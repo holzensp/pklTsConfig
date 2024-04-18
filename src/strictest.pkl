@@ -32,22 +32,8 @@ const Strictest: StrictestItems = new StrictestItems {
     forceConsistentCasingInFileNames = true
 }
 
-function addStrictestItems(StrictestItems: StrictestItems, useStrictest: Boolean): Map = 
-    if (useStrictest) 
-        new StrictestItems {
-            allowUnusedLabels = StrictestItems.allowUnusedLabels
-            allowUnreachableCode = StrictestItems.allowUnreachableCode
-            exactOptionalPropertyTypes = StrictestItems.exactOptionalPropertyTypes
-            noFallthroughCasesInSwitch = StrictestItems.noFallthroughCasesInSwitch
-            noImplicitOverride = StrictestItems.noImplicitOverride
-            noImplicitReturns = StrictestItems.noImplicitReturns
-            noPropertyAccessFromIndexSignature = StrictestItems.noPropertyAccessFromIndexSignature
-            noUncheckedIndexedAccess = StrictestItems.noUncheckedIndexedAccess
-            noUnusedLocals = StrictestItems.noUnusedLocals
-            noUnusedParameters = StrictestItems.noUnusedParameters
-            isolatedModules = StrictestItems.isolatedModules
-            checkJs = StrictestItems.checkJs
-            forceConsistentCasingInFileNames = StrictestItems.forceConsistentCasingInFileNames
-        }.toMap()
+function addStrictestItems(strictestItems: StrictestItems, useStrictest: Boolean): Map =
+    if (useStrictest)
+        strictestItems.toMap()
     else
         Map()

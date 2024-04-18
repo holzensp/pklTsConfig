@@ -12,9 +12,6 @@ const NotTranspiling: NotTranspilingItems = new NotTranspilingItems {
     
 function addNotTranspilingItems(notTranspilingItems: NotTranspilingItems, useNotTranspiling: Boolean): Map = 
     if (useNotTranspiling) 
-        new NotTranspilingItems {
-            `module` = notTranspilingItems.`module`
-            noEmit =  notTranspilingItems.noEmit
-        }.toMap()
+        notTranspilingItems.toMap()
     else
         Map()

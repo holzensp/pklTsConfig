@@ -12,9 +12,6 @@ const Transpiling: TranspilingItems = new TranspilingItems {
 
 function addTranspilingItems(transpilingItems: TranspilingItems, useTranspiling: Boolean): Map = 
     if (useTranspiling) 
-        new TranspilingItems {
-            `module` = transpilingItems.`module`
-            outDir =  transpilingItems.outDir
-        }.toMap()
+        transpilingItems.toMap()
     else
         Map()

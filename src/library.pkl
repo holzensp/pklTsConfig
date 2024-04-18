@@ -8,10 +8,8 @@ const Library: LibraryItems = new LibraryItems {
     declaration = true
 }
 
-function addLibraryItems(LibraryItems: LibraryItems, useLibrary: Boolean): Map = 
+function addLibraryItems(libraryItems: LibraryItems, useLibrary: Boolean): Map =
     if (useLibrary) 
-        new LibraryItems {
-            declaration = LibraryItems.declaration
-        }.toMap()
+        libraryItems.toMap()
     else
         Map()

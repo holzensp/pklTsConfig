@@ -9,9 +9,7 @@ const NotDom: NotDomItems = new NotDomItems {
 }
 
 function addNotDomItems(notDomItems: NotDomItems, useNotDom: Boolean): Map = 
-    if (useNotDom) 
-        new NotDomItems {
-            lib = notDomItems.lib
-        }.toMap()
+    if (useNotDom)
+        notDomItems.toMap()
     else
         Map()
