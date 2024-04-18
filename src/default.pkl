@@ -2,15 +2,32 @@ module TsConfig.Default
 
 import "schema.pkl" as Schema
 
-hidden config: Schema.CompilerOptionsSchema
+/// Use the 'Base' configuration from TotallyTypescript's definitions. Recommended.
+hidden useBase: Boolean = true
+
+/// Use the 'Strict' configuration from TotallyTypescript's definitions. Recommended.
+hidden useStrict: Boolean = true
+
+/// Use the 'Strictest' configuration from TotallyTypescript's definitions. Not recommended.
+hidden useStrictest: Boolean = false
+
+/// Use the 'Dom' configuration from TotallyTypescript's definitions. Optional.
+hidden useDom: Boolean = true
+
+/// Use the 'Library' configuration from TotallyTypescript's definitions. Optional.
+hidden useLibrary: Boolean = false
+
+/// Use the 'Monorepo' configuration from TotallyTypescript's definitions. Optional.
+hidden useMonorepo: Boolean = false
+
+/// Use the 'Transpiling' configuration from TotallyTypescript's definitions. Optional.
+hidden useTranspiling: Boolean = true
 
 hidden fixed useBaseOrStrictest = useBase || useStrictest
 hidden fixed useStrictOrStrictest = useStrict || useStrictest
 hidden fixed useStrictOrDom = useStrict || useDom
 hidden fixed useStrictOrStrictestOrDom = useStrictOrDom || useStrictest
 
-/// Use the 'Base' configuration from TotallyTypescript's definitions. Recommended.
-hidden useBase: Boolean = true
 esModuleInterop: Boolean(useBase)? = if (!useBase) null else true
 skipLibCheck: Boolean(useBase)? = if (!useBase) null else true
 target: String(useBase)? = if (!useBase) null else "es2022"
@@ -19,13 +36,9 @@ resolveJsonModule: Boolean(useBase)? = if (!useBase) null else true
 moduleDetection: String(useBase)? = if (!useBase) null else "force"
 isolatedModules: Boolean(useBaseOrStrictest)? = if (!useBaseOrStrictest) null else true
 
-/// Use the 'Strict' configuration from TotallyTypescript's definitions. Recommended.
-hidden useStrict: Boolean = true
 strict: Boolean(useStrictOrDom)? = if (!useStrictOrDom) null else true
 noUncheckedIndexedAccess: Boolean(useStrictOrStrictestOrDom)? = if (!useStrictOrStrictestOrDom) null else true
 
-/// Use the 'Strictest' configuration from TotallyTypescript's definitions. Not recommended.
-hidden useStrictest: Boolean = false
 allowUnusedLabels: Boolean(useStrictest)? = if (!useStrictest) null else false
 allowUnreachableCode: Boolean(useStrictest)? = if (!useStrictest) null else false
 exactOptionalPropertyTypes: Boolean(useStrictest)? = if (!useStrictest) null else true
@@ -38,21 +51,12 @@ noUnusedParameters: Boolean(useStrictest)? = if (!useStrictest) null else true
 checkJs: Boolean(useStrictest)? = if (!useStrictest) null else true
 forceConsistentCasingInFileNames: Boolean(useStrictest)? = if (!useStrictest) null else true
 
-/// Use the 'Dom' configuration from TotallyTypescript's definitions. Optional.
-hidden useDom: Boolean = true
-
-/// Use the 'Library' configuration from TotallyTypescript's definitions. Optional.
-hidden useLibrary: Boolean = false
 declaration: Boolean(useLibrary)? = if (!useLibrary) null else true
 
-/// Use the 'Monorepo' configuration from TotallyTypescript's definitions. Optional.
-hidden useMonorepo: Boolean = false
 declarationMap: Boolean(useMonorepo)? = if (!useMonorepo) null else true
 declarationDir: String(useMonorepo)? = if (!useMonorepo) null else "dist"
 emitDeclarationOnly: Boolean(useMonorepo)? = if (!useMonorepo) null else true
 
-/// Use the 'Transpiling' configuration from TotallyTypescript's definitions. Optional.
-hidden useTranspiling: Boolean = true
 `module`: String = if (!useTranspiling) "preserve" else "NodeNext"
 outDir: String(useTranspiling)? = if (!useTranspiling) null else "dist"
 noEmit: Boolean(!useTranspiling)? = if (useTranspiling) null else true
