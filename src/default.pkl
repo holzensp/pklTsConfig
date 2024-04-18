@@ -2,7 +2,6 @@ module TsConfig.Default
 
 import "schema.pkl" as Schema
 
-import "nottranspiling.pkl" as NotTranspiling
 import "notdom.pkl" as NotDom
 
 hidden config: Schema.CompilerOptionsSchema
@@ -57,9 +56,9 @@ emitDeclarationOnly: Boolean(useMonorepo)? = if (!useMonorepo) null else true
 
 /// Use the 'Transpiling' configuration from TotallyTypescript's definitions. Optional.
 hidden useTranspiling: Boolean = true
-`module`: String(useTranspiling)? = if (!useTranspiling) null else "NodeNext"
+`module`: String = if (!useTranspiling) "preserve" else "NodeNext"
 outDir: String(useTranspiling)? = if (!useTranspiling) null else "dist"
-
+noEmit: Boolean(!useTranspiling)? = if (useTranspiling) null else true
 
 hidden root: Schema.RootSchema
 
@@ -70,7 +69,6 @@ hidden outputFileName:Schema.ValidOutputFileName = "tsconfig.json"
 hidden fixed aggregatedConfig = new Mapping {
   local items = new Listing {
     module
-    when (!useTranspiling) { new NotTranspiling {} }
     when (!useDom) { new NotDom {} }
   }.fold(Map(), (acc, it) -> acc + it.toMap())
 

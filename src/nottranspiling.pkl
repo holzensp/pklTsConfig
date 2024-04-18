@@ -1,4 +1,0 @@
-module NotTranspiling
-
-`module`: String = "preserve"
-noEmit: Boolean = true
