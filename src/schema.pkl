@@ -15,10 +15,6 @@ class pklTsConfigSchema {
 }
 
 class CompilerOptionsSchema {
-
-    /// Use the 'Base' configuration from TotallyTypescript's definitions. Recommended.
-    useBase: Boolean
-
     /// Use the 'Strict' configuration from TotallyTypescript's definitions. Recommended.
     useStrict: Boolean
 

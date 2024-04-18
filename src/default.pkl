@@ -19,6 +19,7 @@ hidden config: Schema.CompilerOptionsSchema = new {
 hidden fixed useBaseOrStrictest = useBase || useStrictest
 hidden fixed useStrictOrStrictest = useStrict || useStrictest
 
+/// Use the 'Base' configuration from TotallyTypescript's definitions. Recommended.
 hidden useBase: Boolean = true
 esModuleInterop: Boolean(useBase)? = if (!useBase) null else true
 skipLibCheck: Boolean(useBase)? = if (!useBase) null else true
