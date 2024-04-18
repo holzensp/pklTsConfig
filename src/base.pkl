@@ -22,9 +22,3 @@ const Base: BaseItems = new  {
     moduleDetection = "force"
     isolatedModules = true
 }
-
-function addBaseItems(baseItems: BaseItems, useBase: Boolean): Map =
-    if (useBase) 
-        baseItems.toMap()
-    else
-        Map()

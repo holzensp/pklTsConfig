@@ -31,9 +31,3 @@ const Strictest: StrictestItems = new StrictestItems {
     checkJs = true
     forceConsistentCasingInFileNames = true
 }
-
-function addStrictestItems(strictestItems: StrictestItems, useStrictest: Boolean): Map =
-    if (useStrictest)
-        strictestItems.toMap()
-    else
-        Map()

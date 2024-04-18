@@ -7,9 +7,3 @@ class NotDomItems {
 const NotDom: NotDomItems = new NotDomItems {
     lib = List("es2022")
 }
-
-function addNotDomItems(notDomItems: NotDomItems, useNotDom: Boolean): Map = 
-    if (useNotDom)
-        notDomItems.toMap()
-    else
-        Map()

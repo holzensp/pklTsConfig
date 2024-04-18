@@ -13,9 +13,3 @@ const Dom = new  DomItems{
     strict = true
     noUncheckedIndexedAccess = true
 }
-
-function addDomItems(domItems: DomItems, useDom: Boolean): Map = 
-    if (useDom) 
-        domItems.toMap()
-    else
-        Map()

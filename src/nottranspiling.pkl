@@ -9,9 +9,3 @@ const NotTranspiling: NotTranspilingItems = new NotTranspilingItems {
     `module` = "preserve"
     noEmit = true
 }
-    
-function addNotTranspilingItems(notTranspilingItems: NotTranspilingItems, useNotTranspiling: Boolean): Map = 
-    if (useNotTranspiling) 
-        notTranspilingItems.toMap()
-    else
-        Map()

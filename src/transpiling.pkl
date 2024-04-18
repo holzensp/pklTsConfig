@@ -9,9 +9,3 @@ const Transpiling: TranspilingItems = new TranspilingItems {
     `module` = "NodeNext"
     outDir = "dist"
 }
-
-function addTranspilingItems(transpilingItems: TranspilingItems, useTranspiling: Boolean): Map = 
-    if (useTranspiling) 
-        transpilingItems.toMap()
-    else
-        Map()

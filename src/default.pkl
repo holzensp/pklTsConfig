@@ -33,16 +33,17 @@ amend = new Schema.AmendSchema { }
 outputFileName:Schema.ValidOutputFileName = "tsconfig.json"
 
 fixed aggregatedConfig = new Mapping {
-  local items =
-    Base.addBaseItems(Base.Base, config.useBase) +
-    Dom.addDomItems(Dom.Dom, config.useDom) +
-    Strict.addStrictItems(Strict.Strict, config.useStrict) +
-    Strictest.addStrictestItems(Strictest.Strictest, config.useStrictest) +
-    Library.addLibraryItems(Library.Library, config.useLibrary) +
-    Monorepo.addMonorepoItems(Monorepo.Monorepo, config.useMonorepo) +
-    Transpiling.addTranspilingItems(Transpiling.Transpiling, config.useTranspiling) +
-    NotTranspiling.addNotTranspilingItems(NotTranspiling.NotTranspiling, !config.useTranspiling) +
-    NotDom.addNotDomItems(NotDom.NotDom, !config.useDom)
+  local items = new Listing {
+    when (config.useBase) { Base.Base }
+    when (config.useDom) { Dom.Dom }
+    when (config.useStrict) { Strict.Strict }
+    when (config.useStrictest) { Strictest.Strictest }
+    when (config.useLibrary) { Library.Library }
+    when (config.useMonorepo) { Monorepo.Monorepo }
+    when (config.useTranspiling) { Transpiling.Transpiling }
+    when (!config.useTranspiling) { NotTranspiling.NotTranspiling }
+    when (!config.useDom) { NotDom.NotDom }
+  }.fold(Map(), (acc, it) -> acc + it.toMap())
 
   ["compilerOptions"] =
     new Mapping {

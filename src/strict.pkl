@@ -12,9 +12,3 @@ const Strict: StrictItems = new StrictItems {
     strict = true
     noUncheckedIndexedAccess = true
 }
-
-function addStrictItems(strictItems: StrictItems, useStrict: Boolean): Map =
-    if (useStrict) 
-        strictItems.toMap()
-    else
-        Map()

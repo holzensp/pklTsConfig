@@ -7,9 +7,3 @@ class LibraryItems {
 const Library: LibraryItems = new LibraryItems {
     declaration = true
 }
-
-function addLibraryItems(libraryItems: LibraryItems, useLibrary: Boolean): Map =
-    if (useLibrary) 
-        libraryItems.toMap()
-    else
-        Map()
