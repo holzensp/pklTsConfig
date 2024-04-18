@@ -2,31 +2,37 @@ module TsConfig.Default
 
 import "schema.pkl" as Schema
 
-/// Use the 'Base' configuration from TotallyTypescript's definitions. Recommended.
-hidden useBase: Boolean = true
+typealias TotallyTypescriptConfiguration =
+  "Base"
+  |"Strict"
+  |"Strictest"
+  |"Dom"
+  |"Library"
+  |"Monorepo"
+  |"Transpiling"
 
-/// Use the 'Strict' configuration from TotallyTypescript's definitions. Recommended.
-hidden useStrict: Boolean = true
+hidden totallyTypescriptConfigurations: Listing<TotallyTypescriptConfiguration> = new {
+  "Base"
+  "Strict"
+  // "Dom"
+  "Transpiling"
+}
 
-/// Use the 'Strictest' configuration from TotallyTypescript's definitions. Not recommended.
-hidden useStrictest: Boolean = false
 
-/// Use the 'Dom' configuration from TotallyTypescript's definitions. Optional.
-hidden useDom: Boolean = true
+local ttsConfig: Set<TotallyTypescriptConfiguration> =
+  totallyTypescriptConfigurations.fold(Set(), (acc, it) -> acc.add(it))
 
-/// Use the 'Library' configuration from TotallyTypescript's definitions. Optional.
-hidden useLibrary: Boolean = false
+local useBase: Boolean = ttsConfig.contains("Base")
+local useStrict: Boolean = ttsConfig.contains("Strict")
+local useStrictest: Boolean = ttsConfig.contains("Strictest")
+local useDom: Boolean = ttsConfig.contains("Dom")
+local useLibrary: Boolean = ttsConfig.contains("Library")
+local useMonorepo: Boolean = ttsConfig.contains("Monorepo")
+local useTranspiling: Boolean = ttsConfig.contains("Transpiling")
 
-/// Use the 'Monorepo' configuration from TotallyTypescript's definitions. Optional.
-hidden useMonorepo: Boolean = false
-
-/// Use the 'Transpiling' configuration from TotallyTypescript's definitions. Optional.
-hidden useTranspiling: Boolean = true
-
-hidden fixed useBaseOrStrictest = useBase || useStrictest
-hidden fixed useStrictOrStrictest = useStrict || useStrictest
-hidden fixed useStrictOrDom = useStrict || useDom
-hidden fixed useStrictOrStrictestOrDom = useStrictOrDom || useStrictest
+local useBaseOrStrictest = useBase || useStrictest
+local useStrictOrDom = useStrict || useDom
+local useStrictOrStrictestOrDom = useStrictOrDom || useStrictest
 
 esModuleInterop: Boolean(useBase)? = if (!useBase) null else true
 skipLibCheck: Boolean(useBase)? = if (!useBase) null else true
