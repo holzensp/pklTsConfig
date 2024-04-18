@@ -44,45 +44,63 @@ local useLibrary: Boolean = ttsConfig.contains("Library")
 local useMonorepo: Boolean = ttsConfig.contains("Monorepo")
 local useTranspiling: Boolean = ttsConfig.contains("Transpiling")
 
-local useBaseOrStrictest = useBase || useStrictest
-local useStrictOrDom = useStrict || useDom
-local useStrictOrStrictestOrDom = useStrictOrDom || useStrictest
-
 compilerOptions: CompilerOptions = new {
-  esModuleInterop = if (!useBase) null else true
-  skipLibCheck = if (!useBase) null else true
-  target = if (!useBase) null else "es2022"
-  allowJs = if (!useBase) null else true
-  resolveJsonModule = if (!useBase) null else true
-  moduleDetection = if (!useBase) null else "force"
-  isolatedModules = if (!useBaseOrStrictest) null else true
+  when (useBase) {
+    esModuleInterop = true
+    skipLibCheck = true
+    target = "es2022"
+    allowJs = true
+    resolveJsonModule = true
+    moduleDetection = "force"
+  }
 
-  strict = if (!useStrictOrDom) null else true
-  noUncheckedIndexedAccess = if (!useStrictOrStrictestOrDom) null else true
+  when (useBase || useStrictest) {
+    isolatedModules = true
+  }
 
-  allowUnusedLabels = if (!useStrictest) null else false
-  allowUnreachableCode = if (!useStrictest) null else false
-  exactOptionalPropertyTypes = if (!useStrictest) null else true
-  noFallthroughCasesInSwitch = if (!useStrictest) null else true
-  noImplicitOverride = if (!useStrictest) null else true
-  noImplicitReturns = if (!useStrictest) null else true
-  noPropertyAccessFromIndexSignature = if (!useStrictest) null else true
-  noUnusedLocals = if (!useStrictest) null else true
-  noUnusedParameters = if (!useStrictest) null else true
-  checkJs = if (!useStrictest) null else true
-  forceConsistentCasingInFileNames = if (!useStrictest) null else true
+  when (useStrict || useDom) {
+    strict = true
+  }
 
-  declaration = if (!useLibrary) null else true
+  when (useStrict || useStrictest || useDom) {
+    noUncheckedIndexedAccess = true
+  }
 
-  declarationMap = if (!useMonorepo) null else true
-  declarationDir = if (!useMonorepo) null else "dist"
-  emitDeclarationOnly = if (!useMonorepo) null else true
+  when (useStrictest) {
+    allowUnusedLabels = false
+    allowUnreachableCode = false
+    exactOptionalPropertyTypes = true
+    noFallthroughCasesInSwitch = true
+    noImplicitOverride = true
+    noImplicitReturns = true
+    noPropertyAccessFromIndexSignature = true
+    noUnusedLocals = true
+    noUnusedParameters = true
+    checkJs = true
+    forceConsistentCasingInFileNames = true
+  }
 
-  `module` = if (!useTranspiling) "preserve" else "NodeNext"
-  outDir = if (!useTranspiling) null else "dist"
-  noEmit = if (useTranspiling) null else true
+  when (useLibrary) {
+    declaration = true
+  }
 
-  lib = if (useDom) null else List("es2022")
+  when (useMonorepo) {
+    declarationMap = true
+    declarationDir = "dist"
+    emitDeclarationOnly = true
+  }
+
+  when (useTranspiling) {
+    `module` = "NodeNext"
+    outDir = "dist"
+  } else {
+    `module` = "preserve"
+    noEmit = true
+  }
+
+  when (!useDom) {
+    lib = List("es2022")
+  }
 }
 
 
