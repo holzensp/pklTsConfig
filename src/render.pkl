@@ -214,22 +214,22 @@ function renderElement(value: Any): String =
     else if (value is List) #"[\#(renderElement(value.getOrNull(0)))]"#
     else ""
 
-function renderTsConfigWithComments(config: Schema.CheatSheetItem): String = 
-     let (items = runTsConfig(config))
-        if (items.isEmpty) 
-            "No configuration items selected."
-        
-        else new Listing<String> {
-            for(name, value in items) {
-                let (item:ConfigItem? = lookupConfigItem(name))
-                new Listing<String> {
-                    when (!(item?.groupComment?.isEmpty ?? true)) {
-                        linebreak
-                        #"\#t\#(item.groupComment)"#
-                    }
-                    when (item != null) { 
-                        #"\#t"\#(item.name)": \#(renderElement(value)), \#t\#t// \#(item.comment)"# 
-                        }
-                }.join("\n")
-            }
-        }.toList().filter((line) -> line != null && !line.isEmpty).toListing().join("\n")
+// function renderTsConfigWithComments(config: Schema.CheatSheetItem): String =
+//      let (items = runTsConfig(config))
+//         if (items.isEmpty)
+//             "No configuration items selected."
+//
+//         else new Listing<String> {
+//             for(name, value in items) {
+//                 let (item:ConfigItem? = lookupConfigItem(name))
+//                 new Listing<String> {
+//                     when (!(item?.groupComment?.isEmpty ?? true)) {
+//                         linebreak
+//                         #"\#t\#(item.groupComment)"#
+//                     }
+//                     when (item != null) {
+//                         #"\#t"\#(item.name)": \#(renderElement(value)), \#t\#t// \#(item.comment)"#
+//                         }
+//                 }.join("\n")
+//             }
+//         }.toList().filter((line) -> line != null && !line.isEmpty).toListing().join("\n")

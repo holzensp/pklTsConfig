@@ -3,6 +3,16 @@ module TsConfig.Default
 import "schema.pkl" as Schema
 import "render.pkl" as Render
 
+import "base.pkl" as Base
+import "strict.pkl" as Strict
+import "strictest.pkl" as Strictest
+import "transpiling.pkl" as Transpiling
+import "nottranspiling.pkl" as NotTranspiling
+import "library.pkl" as Library
+import "monorepo.pkl" as Monorepo
+import "dom.pkl" as Dom
+import "notdom.pkl" as NotDom
+
 config = new Schema.CompilerOptionsSchema{
   useBase = true
   useStrict = true
@@ -24,7 +34,19 @@ amend = new Schema.AmendSchema { }
 outputFileName:Schema.ValidOutputFileName = "tsconfig.json"
 
 fixed aggregatedConfig = new Mapping {
-  ["compilerOptions"] = let (items = Render.runTsConfig(config))
+  local items = List (
+    Base.addBaseItems(Base.Base, config.useBase) +
+    Dom.addDomItems(Dom.Dom, config.useDom) +
+    Strict.addStrictItems(Strict.Strict, config.useStrict) +
+    Strictest.addStrictestItems(Strictest.Strictest, config.useStrictest) +
+    Library.addLibraryItems(Library.Library, config.useLibrary) +
+    Monorepo.addMonorepoItems(Monorepo.Monorepo, config.useMonorepo) +
+    Transpiling.addTranspilingItems(Transpiling.Transpiling, config.useTranspiling) +
+    NotTranspiling.addNotTranspilingItems(NotTranspiling.NotTranspiling, !config.useTranspiling) +
+    NotDom.addNotDomItems(NotDom.NotDom, !config.useDom)
+  ).filter((it) -> it != null)[0]
+
+  ["compilerOptions"] =
     new Mapping {
       for(name, value in items) {
         [name] = if (!amend.isEmpty && amend.getOrNull(name) != null )
