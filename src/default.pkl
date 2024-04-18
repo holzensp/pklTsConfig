@@ -1,7 +1,6 @@
 module TsConfig.Default
 
 import "schema.pkl" as Schema
-import "render.pkl" as Render
 
 import "base.pkl" as Base
 import "strict.pkl" as Strict
@@ -49,14 +48,14 @@ fixed aggregatedConfig = new Mapping {
     new Mapping {
       for(name, value in items) {
         [name] = if (!amend.isEmpty && amend.getOrNull(name) != null )
-                    Render.renderElement(amend.getOrNull(name))
+                    amend.getOrNull(name)
                  else
-                    Render.renderElement(value)
+                    value
       }
       when(!amend.isEmpty) {
         for (name, value in amend) {
           when (items.getOrNull(name) == null) {
-            [name] = Render.renderElement(value)
+            [name] = value
           }
         }
       }
@@ -68,7 +67,12 @@ fixed aggregatedConfig = new Mapping {
 }
 
 output {
-  renderer = new JsonRenderer {}
+  renderer = new JsonRenderer {
+    converters {
+      [Boolean] = (it) -> "\(it)"
+      [List] = (it) -> "[\(it[0])]"
+    }
+  }
   value = aggregatedConfig
   files {
     [if (outputFileName == "tsconfig.json") "totally_tsconfig.json" else outputFileName] = output

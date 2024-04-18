@@ -2,19 +2,7 @@
 @ModuleInfo { minPklVersion = "0.25.0" }
 module TsConfig
 
-import "TsConfig.pkl"
-
 import "schema.pkl" as Schema
-
-import "base.pkl" as Base
-import "strict.pkl" as Strict
-import "strictest.pkl" as Strictest
-import "transpiling.pkl" as Transpiling
-import "nottranspiling.pkl" as NotTranspiling
-import "library.pkl" as Library
-import "monorepo.pkl" as Monorepo
-import "dom.pkl" as Dom
-import "notdom.pkl" as NotDom
 
 const linebreak = "\n"
 
@@ -193,27 +181,27 @@ const ConfigItems: List<Schema.CheatSheetItem> =  List (
 function lookupConfigItem(name: String): Schema.CheatSheetItem? = 
     ConfigItems.findOrNull((it) -> it.name == name)
 
-/// Build the TsConfig module with the given configuration.
-function runTsConfig(config: Any) = 
-      List (
-        Base.addBaseItems(Base.Base, config.useBase) +
-        Dom.addDomItems(Dom.Dom, config.useDom) + 
-        Strict.addStrictItems(Strict.Strict, config.useStrict) +
-        Strictest.addStrictestItems(Strictest.Strictest, config.useStrictest) +
-        Library.addLibraryItems(Library.Library, config.useLibrary) +
-        Monorepo.addMonorepoItems(Monorepo.Monorepo, config.useMonorepo) +
-        Transpiling.addTranspilingItems(Transpiling.Transpiling, config.useTranspiling) +
-        NotTranspiling.addNotTranspilingItems(NotTranspiling.NotTranspiling, !config.useTranspiling) +
-        NotDom.addNotDomItems(NotDom.NotDom, !config.useDom) 
-     ).filter((it) -> it != null)[0]
-
-function renderElement(value: Any): String =
-
-    if (value is String) #"\#(value)"#
-    else if (value is Boolean) #"\#(value)"#
-    else if (value is List) #"[\#(renderElement(value.getOrNull(0)))]"#
-    else ""
-
+// /// Build the TsConfig module with the given configuration.
+// function runTsConfig(config: Any) =
+//       List (
+//         Base.addBaseItems(Base.Base, config.useBase) +
+//         Dom.addDomItems(Dom.Dom, config.useDom) +
+//         Strict.addStrictItems(Strict.Strict, config.useStrict) +
+//         Strictest.addStrictestItems(Strictest.Strictest, config.useStrictest) +
+//         Library.addLibraryItems(Library.Library, config.useLibrary) +
+//         Monorepo.addMonorepoItems(Monorepo.Monorepo, config.useMonorepo) +
+//         Transpiling.addTranspilingItems(Transpiling.Transpiling, config.useTranspiling) +
+//         NotTranspiling.addNotTranspilingItems(NotTranspiling.NotTranspiling, !config.useTranspiling) +
+//         NotDom.addNotDomItems(NotDom.NotDom, !config.useDom)
+//      ).filter((it) -> it != null)[0]
+//
+// function renderElement(value: Any): String =
+//
+//     if (value is String) #"\#(value)"#
+//     else if (value is Boolean) #"\#(value)"#
+//     else if (value is List) #"[\#(renderElement(value.getOrNull(0)))]"#
+//     else ""
+//
 // function renderTsConfigWithComments(config: Schema.CheatSheetItem): String =
 //      let (items = runTsConfig(config))
 //         if (items.isEmpty)
