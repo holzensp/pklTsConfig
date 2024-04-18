@@ -3,7 +3,7 @@ amends "./src/default.pkl"
 
 totallyTypescriptConfigurations {
   "Strictest"
-  // "NoDom"
+  "NotDom"
 }
 
 root {

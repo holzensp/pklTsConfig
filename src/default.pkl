@@ -2,7 +2,7 @@ module TsConfig.Default
 
 import "schema.pkl" as Schema
 
-typealias TotallyTypescriptConfiguration =
+typealias TTSConfig =
   "Base"
   |"Strict"
   |"Strictest"
@@ -11,16 +11,29 @@ typealias TotallyTypescriptConfiguration =
   |"Monorepo"
   |"Transpiling"
 
+typealias TTSConfigNegated =
+  "NotBase"
+  |"NotStrict"
+  |"NotStrictest"
+  |"NotDom"
+  |"NotLibrary"
+  |"NotMonorepo"
+  |"NotTranspiling"
+
+typealias TotallyTypescriptConfiguration = TTSConfig|TTSConfigNegated
+
 hidden totallyTypescriptConfigurations: Listing<TotallyTypescriptConfiguration> = new {
   "Base"
   "Strict"
-  // "Dom"
+  "Dom"
   "Transpiling"
 }
 
-
-local ttsConfig: Set<TotallyTypescriptConfiguration> =
-  totallyTypescriptConfigurations.fold(Set(), (acc, it) -> acc.add(it))
+local ttsConfig: Set<TTSConfig> =
+  totallyTypescriptConfigurations.fold(
+    Map(),
+    (acc, it) -> if (it.startsWith("Not")) acc.put(it.drop(3), false) else acc.put(it, true)
+  ).filter((_, it) -> it).keys
 
 local useBase: Boolean = ttsConfig.contains("Base")
 local useStrict: Boolean = ttsConfig.contains("Strict")
