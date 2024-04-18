@@ -66,23 +66,10 @@ hidden amend: Schema.AmendSchema
 hidden outputFileName:Schema.ValidOutputFileName = "tsconfig.json"
 
 hidden fixed aggregatedConfig = new Mapping {
-  local items = module.toMap()
-
-  ["compilerOptions"] =
-    new Mapping {
-      for(name, value in items) {
-        [name] = amend.getOrNull(name) ?? value
-      }
-      for (name, value in amend) {
-        when (items.getOrNull(name) == null) {
-          [name] = value
-        }
-      }
-    }
-  when (root.`extends` != "") { ["extends"] = root.`extends` }
-  when (!root.files.isEmpty) { ["files"] = root.files }
-  when (!root.include.isEmpty) { ["include"] = root.include }
-  when (!root.exclude.isEmpty) { ["exclude"] = root.exclude }
+  ["compilerOptions"] = (module.toDynamic()) {
+    ...amend
+  }.toMap()
+  ...root.toMap()
 }
 
 output {
@@ -90,6 +77,7 @@ output {
     converters {
       [Boolean] = (it) -> "\(it)"
       [List] = (it) -> "[\(it[0])]"
+      [Listing] = (it) -> if (it.isEmpty) null else it
     }
   }
   value = aggregatedConfig
