@@ -12,7 +12,7 @@ import "monorepo.pkl" as Monorepo
 import "dom.pkl" as Dom
 import "notdom.pkl" as NotDom
 
-config: Schema.CompilerOptionsSchema = new {
+hidden config: Schema.CompilerOptionsSchema = new {
   useBase = true
   useStrict = true
   useStrictest = false
@@ -22,14 +22,15 @@ config: Schema.CompilerOptionsSchema = new {
   useTranspiling = true
 }
 
-root: Schema.RootSchema
+hidden root: Schema.RootSchema
 
-amend: Schema.AmendSchema
+hidden amend: Schema.AmendSchema
 
-outputFileName:Schema.ValidOutputFileName = "tsconfig.json"
+hidden outputFileName:Schema.ValidOutputFileName = "tsconfig.json"
 
-fixed aggregatedConfig = new Mapping {
+hidden fixed aggregatedConfig = new Mapping {
   local items = new Listing {
+    module
     when (config.useBase) { new Base {} }
     when (config.useDom) { new Dom {} }
     when (config.useStrict) { new Strict {} }
