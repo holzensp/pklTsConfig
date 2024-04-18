@@ -2,7 +2,6 @@ module TsConfig.Default
 
 import "schema.pkl" as Schema
 
-import "strict.pkl" as Strict
 import "strictest.pkl" as Strictest
 import "transpiling.pkl" as Transpiling
 import "nottranspiling.pkl" as NotTranspiling
@@ -12,7 +11,6 @@ import "dom.pkl" as Dom
 import "notdom.pkl" as NotDom
 
 hidden config: Schema.CompilerOptionsSchema = new {
-  useStrict = true
   useStrictest = false
   useDom = true
   useMonorepo = false
@@ -29,6 +27,10 @@ resolveJsonModule: Boolean(useBase)? = if (!useBase) null else true
 moduleDetection: String(useBase)? = if (!useBase) null else "force"
 isolatedModules: Boolean(useBase)? = if (!useBase) null else true
 
+hidden useStrict: Boolean = true
+strict: Boolean(useStrict)? = if (!useStrict) null else true
+noUncheckedIndexedAccess: Boolean(useStrict)? = if (!useStrict) null else true
+
 hidden root: Schema.RootSchema
 
 hidden amend: Schema.AmendSchema
@@ -39,7 +41,6 @@ hidden fixed aggregatedConfig = new Mapping {
   local items = new Listing {
     module
     when (config.useDom) { new Dom {} }
-    when (config.useStrict) { new Strict {} }
     when (config.useStrictest) { new Strictest {} }
     when (config.useLibrary) { new Library {} }
     when (config.useMonorepo) { new Monorepo {} }

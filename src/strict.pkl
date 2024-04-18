@@ -1,4 +1,0 @@
-module Strict
-
-strict = true
-noUncheckedIndexedAccess = true
