@@ -2,7 +2,6 @@ module TsConfig.Default
 
 import "schema.pkl" as Schema
 
-import "base.pkl" as Base
 import "strict.pkl" as Strict
 import "strictest.pkl" as Strictest
 import "transpiling.pkl" as Transpiling
@@ -13,7 +12,6 @@ import "dom.pkl" as Dom
 import "notdom.pkl" as NotDom
 
 hidden config: Schema.CompilerOptionsSchema = new {
-  useBase = true
   useStrict = true
   useStrictest = false
   useDom = true
@@ -21,6 +19,15 @@ hidden config: Schema.CompilerOptionsSchema = new {
   useLibrary = false
   useTranspiling = true
 }
+
+hidden useBase: Boolean = true
+esModuleInterop: Boolean(useBase)? = if (!useBase) null else true
+skipLibCheck: Boolean(useBase)? = if (!useBase) null else true
+target: String(useBase)? = if (!useBase) null else "es2022"
+allowJs: Boolean(useBase)? = if (!useBase) null else true
+resolveJsonModule: Boolean(useBase)? = if (!useBase) null else true
+moduleDetection: String(useBase)? = if (!useBase) null else "force"
+isolatedModules: Boolean(useBase)? = if (!useBase) null else true
 
 hidden root: Schema.RootSchema
 
@@ -31,7 +38,6 @@ hidden outputFileName:Schema.ValidOutputFileName = "tsconfig.json"
 hidden fixed aggregatedConfig = new Mapping {
   local items = new Listing {
     module
-    when (config.useBase) { new Base {} }
     when (config.useDom) { new Dom {} }
     when (config.useStrict) { new Strict {} }
     when (config.useStrictest) { new Strictest {} }
