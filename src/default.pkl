@@ -12,7 +12,7 @@ import "monorepo.pkl" as Monorepo
 import "dom.pkl" as Dom
 import "notdom.pkl" as NotDom
 
-config = new Schema.CompilerOptionsSchema{
+config: Schema.CompilerOptionsSchema = new {
   useBase = true
   useStrict = true
   useStrictest = false
@@ -22,13 +22,9 @@ config = new Schema.CompilerOptionsSchema{
   useTranspiling = true
 }
 
-root = new Schema.RootSchema {
-  files = new Listing {}
-  include = new Listing {}
-  exclude = new Listing {}
-}
+root: Schema.RootSchema
 
-amend = new Schema.AmendSchema { }
+amend: Schema.AmendSchema
 
 outputFileName:Schema.ValidOutputFileName = "tsconfig.json"
 
