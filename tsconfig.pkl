@@ -6,18 +6,16 @@ totallyTypescriptConfigurations {
   "NotDom"
 }
 
-root {
-    `extends` = "project_tsconfig.json"
-    files { 
-        "main.ts"
-        "index.ts"
-        }
-    exclude { 
-        "exlude.ts"
-        }
-    include {
-        "include.ts"
+`extends` = "project_tsconfig.json"
+files {
+    "main.ts"
+    "index.ts"
     }
+exclude {
+    "exlude.ts"
+    }
+include {
+    "include.ts"
 }
 
 compilerOptions {

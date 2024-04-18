@@ -103,14 +103,18 @@ compilerOptions: CompilerOptions = new {
   }
 }
 
+typealias FileName = String(contains(".ts") || contains(".tsx") || contains(".json") || contains(".js"))
+
+`extends`: FileName?
+files: Listing<FileName>
+include: Listing<FileName>
+exclude: Listing<FileName>
 
 hidden root: Schema.RootSchema
 
 hidden outputFileName:Schema.ValidOutputFileName = "tsconfig.json"
 
-hidden fixed aggregatedConfig = (module.toDynamic()) {
-  ...root.toMap()
-}
+hidden fixed aggregatedConfig = module.toDynamic()
 
 output {
   renderer = new JsonRenderer {
