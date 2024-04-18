@@ -1,33 +1,15 @@
 module Strictest
 
-class StrictestItems {
-    allowUnusedLabels: Boolean
-    allowUnreachableCode: Boolean
-    exactOptionalPropertyTypes: Boolean
-    noFallthroughCasesInSwitch: Boolean
-    noImplicitOverride: Boolean
-    noImplicitReturns: Boolean
-    noPropertyAccessFromIndexSignature: Boolean
-    noUncheckedIndexedAccess: Boolean
-    noUnusedLocals: Boolean
-    noUnusedParameters: Boolean
-    isolatedModules: Boolean
-    checkJs: Boolean
-    forceConsistentCasingInFileNames: Boolean
-}
-
-const Strictest: StrictestItems = new StrictestItems {
-    allowUnusedLabels = false
-    allowUnreachableCode = false
-    exactOptionalPropertyTypes = true
-    noFallthroughCasesInSwitch = true
-    noImplicitOverride = true
-    noImplicitReturns = true
-    noPropertyAccessFromIndexSignature = true
-    noUncheckedIndexedAccess = true
-    noUnusedLocals = true
-    noUnusedParameters = true
-    isolatedModules = true
-    checkJs = true
-    forceConsistentCasingInFileNames = true
-}
+allowUnusedLabels: Boolean = false
+allowUnreachableCode: Boolean = false
+exactOptionalPropertyTypes: Boolean = true
+noFallthroughCasesInSwitch: Boolean = true
+noImplicitOverride: Boolean = true
+noImplicitReturns: Boolean = true
+noPropertyAccessFromIndexSignature: Boolean = true
+noUncheckedIndexedAccess: Boolean = true
+noUnusedLocals: Boolean = true
+noUnusedParameters: Boolean = true
+isolatedModules: Boolean = true
+checkJs: Boolean = true
+forceConsistentCasingInFileNames: Boolean = true

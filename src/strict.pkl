@@ -2,13 +2,3 @@ module Strict
 
 strict = true
 noUncheckedIndexedAccess = true
-
-class StrictItems {
-    strict: Boolean
-    noUncheckedIndexedAccess: Boolean
-}
-
-const Strict: StrictItems = new StrictItems {
-    strict = true
-    noUncheckedIndexedAccess = true
-}

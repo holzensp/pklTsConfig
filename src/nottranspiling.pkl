@@ -1,11 +1,4 @@
 module NotTranspiling
 
-class NotTranspilingItems {
-    `module`: String
-    noEmit: Boolean
-}
-
-const NotTranspiling: NotTranspilingItems = new NotTranspilingItems {
-    `module` = "preserve"
-    noEmit = true
-}
+`module`: String = "preserve"
+noEmit: Boolean = true

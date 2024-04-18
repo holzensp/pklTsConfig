@@ -1,11 +1,4 @@
 module Transpiling
 
-class TranspilingItems {
-    `module`: String
-    outDir: String
-}
-
-const Transpiling: TranspilingItems = new TranspilingItems {
-    `module` = "NodeNext"
-    outDir = "dist"
-}
+`module`: String = "NodeNext"
+outDir: String = "dist"

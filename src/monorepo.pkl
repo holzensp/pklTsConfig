@@ -1,13 +1,5 @@
 module Monorepo
 
-class MonorepoItems {
-    declarationMap: Boolean
-    declarationDir: String
-    emitDeclarationOnly: Boolean
-}
-
-const Monorepo: MonorepoItems = new MonorepoItems {
-    declarationMap = true
-    declarationDir = "dist"
-    emitDeclarationOnly = true
-}
+declarationMap: Boolean = true
+declarationDir: String = "dist"
+emitDeclarationOnly: Boolean = true

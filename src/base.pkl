@@ -1,24 +1,10 @@
 module Base
 
-//typealias BaseItems = Mapping<String, Boolean|String>
+esModuleInterop: Boolean = true
+skipLibCheck: Boolean = true
+target: String = "es2022"
+allowJs: Boolean = true
+resolveJsonModule: Boolean = true
+moduleDetection: String = "force"
+isolatedModules: Boolean = true
 
-
-class BaseItems {
-    esModuleInterop: Boolean
-    skipLibCheck: Boolean
-    target: String
-    allowJs: Boolean
-    resolveJsonModule: Boolean
-    moduleDetection: String
-    isolatedModules: Boolean
-}
-
-const Base: BaseItems = new  {
-    esModuleInterop = true
-    skipLibCheck = true
-    target = "es2022"
-    allowJs = true
-    resolveJsonModule = true
-    moduleDetection = "force"
-    isolatedModules = true
-}

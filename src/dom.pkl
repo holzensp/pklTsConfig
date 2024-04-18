@@ -1,15 +1,4 @@
 module Dom
 
-//typealias DomItems = Mapping<String, String|Boolean>
-
-
-class DomItems {
-    strict: Boolean
-    noUncheckedIndexedAccess: Boolean
-}
-
-
-const Dom = new  DomItems{
-    strict = true
-    noUncheckedIndexedAccess = true
-}
+strict: Boolean = true
+noUncheckedIndexedAccess: Boolean = true
